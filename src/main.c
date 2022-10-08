@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:20:47 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/07 09:28:48 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/08 17:32:11 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	printf("Cub3D\n");
+	printf("Cub3D is Loading...\n");
 	return (0);
 }
