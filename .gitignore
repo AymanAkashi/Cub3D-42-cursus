@@ -1,7 +1,7 @@
 #vscode
 .vscode
 #program_name
-minishell
+cub3d
 # Prerequisites
 *.d
 
