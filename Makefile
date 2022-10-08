@@ -13,21 +13,27 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 LIB_DIR			:= lib
 LIBFT_DIR		:= $(LIB_DIR)/libft
+MLX42_DIR		:= $(LIB_DIR)/MLX42
 
 # *********************************** Files ************************************
 NAME			:= cub3d
-SRC				:= $(shell ls $(SRC_DIR))
+SRC				:= main.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
+MLX42			:= libmlx42.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -g
-INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
-LIBFLAGS		:= -L $(LIBFT_DIR) -lft
+INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) \
+					-I $(shell brew --prefix glfw)/$(INC_DIR) \
+					-I lib/MLX42/include/MLX42
+LIBFLAGS		:= -L $(LIBFT_DIR) -lft \
+					-L $(MLX42_DIR) -lmlx42 \
+					-lglfw -L $(shell brew --prefix glfw)/lib
 
 # ******************************* Other commands *******************************
 RM				:= rm -rf
@@ -37,13 +43,14 @@ MKDIR			:= mkdir -p
 OBJ_DEP			:= $(addprefix $(OBJ_DIR)/, $(OBJ))
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
+MLX42_DEP		:= $(MLX42_DIR)/$(MLX42)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
 LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
 
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP)
+$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP) $(MLX42_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
 	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DEP) -o $(NAME)
 
