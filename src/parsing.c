@@ -3,51 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/09 14:37:08 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/09 17:56:17 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	check_format(char *file)
+t_compass	*scan_line(char *line)
 {
-	char	*format;
-	int		i;
-	int		j;
+	int			i;
+	char		*content;
+	t_compass	*compass;
 
-	format = ft_strdup("buc.");
-	i = ft_strlen(file) - 1;
-	j = -1;
-	while (i >= 0 && format[++j] == file[i])
-		i--;
-	free(format);
-	if (j == 4)
-		return (_true);
-	return (_false);
+	i = 0;
+	content = NULL;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+		i++;
+	if (!line || !line[i])
+		return (NULL);
+	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+		content = append_char(content, line[i++]);
+	compass = ft_d_lstnew(get_path(&line[i]), check_type(content));
+	return (compass);
 }
 
-void parsing(char *map)
+//******************************Print List of compass*************************//
+void	print_list(t_compass *list)
 {
-	int		fd;
+	t_compass	*tmp;
+	char		*str[] = {"NO", "SO", "WE", "EA"};
 
-	fd = open(map, O_RDONLY | O_EXCL);
-	if (fd == -1 || !check_format(map))
+	tmp = list;
+	while (tmp)
 	{
-		if (fd == -1)
-			(red(), printf("Cub3D :( %s\n", strerror(errno)), reset());
-		else
-			(red(), printf("Cub3D :( Invalid file format\n"), reset());
-		exit(EXIT_FAILURE);
+		printf("type: %s, path: %s\n", str[tmp->type], tmp->path);
+		tmp = tmp->next;
 	}
-	char	*line = get_next_line(fd);
+}
+//****************************************************************************//
+
+void	scan_file(int fd, t_cub *cub, int c)
+{
+	char		*line;
+	t_compass	*compass;
+
+	compass = NULL;
+	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%s",line);
+		compass = scan_line(line);
+		if (compass)
+		{
+			if (!check_order(compass->type, &c) || !check_path(compass->path))
+				error_infomation(c);
+			ft_d_lstadd_back(&cub->compass, compass);
+			c++;
+		}
+		if (c == 4)
+			break ;
 		line = get_next_line(fd);
 	}
-	printf("\n");
+}
+
+void	parsing(char *map, t_cub *cub)
+{
+	int			c;
+	int			fd;
+
+	c = 0;
+	fd = open(map, O_RDONLY | O_EXCL);
+	if (fd == -1 || !check_format(map))
+		error_file(fd);
+	scan_file(fd, cub, c);
+	print_list(cub->compass);
 	close(fd);
 }
