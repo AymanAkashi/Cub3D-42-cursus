@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/09 11:51:12 by moseddik         ###   ########.fr        #
+#    Updated: 2022/10/09 13:16:33 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ MLX42_DIR		:= $(LIB_DIR)/MLX42
 NAME			:= cub3d
 SRC				:= main.c \
 					get_next_line.c \
-					get_next_line_utils.c
+					get_next_line_utils.c \
+					parsing.c \
+					coloring_output.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
