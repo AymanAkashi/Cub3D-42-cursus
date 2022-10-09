@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/09 13:16:33 by moseddik         ###   ########.fr        #
+#    Updated: 2022/10/09 17:45:54 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,12 @@ NAME			:= cub3d
 SRC				:= main.c \
 					get_next_line.c \
 					get_next_line_utils.c \
+					coloring_output.c \
+					list_compass.c \
+					cub_tools.c \
 					parsing.c \
-					coloring_output.c
+					parsing_error.c \
+					parsing_tools.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
@@ -43,7 +47,7 @@ LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g
+CFLAGS			:= -Wall -Wextra -Werror -g -fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) \
 					-I $(shell brew --prefix glfw)/$(INC_DIR) \
 					-I lib/MLX42/include/MLX42
