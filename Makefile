@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
+#    Updated: 2022/10/09 09:41:32 by moseddik         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # *********************************** Colors ***********************************
 NC				:= \033[m
 RED				:= \033[0;31m
@@ -46,6 +58,7 @@ LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
 MLX42_DEP		:= $(MLX42_DIR)/$(MLX42)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
 LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
+MLX42_INC_DEP	:= $(MLX42_DIR)/$(INC_DIR)/MLX42
 
 # ********************************** Targets ***********************************
 all: $(NAME)
@@ -63,15 +76,23 @@ $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
 	@make -C $(LIBFT_DIR)
 
+$(MLX42_DEP): $(MLX42_INC_DEP)
+	@echo "$(BLUE)Building	$(CYAN)$(MLX42)$(NC)"
+	@make -C $(MLX42_DIR)
+
 clean:
-	@echo "$(RED)Removing$(BLUE)	$(LIBFT)Object files$(NC)"
+	@echo "$(RED)Removing$(BLUE)	$(LIBFT)  Object files$(NC)"
 	@make clean -C $(LIBFT_DIR)
+	@echo "$(RED)Removing$(BLUE)	$(MLX42)  Object files$(NC)"
+	@make clean -C $(MLX42_DIR)
 	@echo "$(RED)Removing	$(YELLOW)Object files$(NC)"
 	@$(RM) $(OBJ_DIR)
 
 fclean: clean
 	@echo "$(RED)Removing	$(BLUE)$(LIBFT)$(NC)"
 	@make fclean -C $(LIBFT_DIR)
+	@echo "$(RED)Removing	$(BLUE)$(MLX42)$(NC)"
+	@make fclean -C $(MLX42_DIR)
 	@echo "$(RED)Removing	$(PURPLE)$(NAME)$(NC)"
 	@$(RM) $(NAME)
 
