@@ -3,61 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:22:21 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/09 11:52:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:30:18 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-char	*ft_strchr(char *str, int c)
-{
-	int	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == (unsigned char)c)
-			return (&str[i]);
-		i++;
-	}
-	if (str[i] == (unsigned char)c)
-		return (&str[i]);
-	return (0);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	i;
-	size_t	j;
-	char	*newstr;
-
-	if (!s1 && !s2)
-		return (NULL);
-	newstr = (char *)malloc((sizeof(char)
-				* (ft_strlen(s1) + ft_strlen(s2) + 1)));
-	if (!newstr)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		newstr[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j] != '\0')
-	{
-		newstr[i] = s2[j];
-		j++;
-		i++;
-	}
-	newstr[i] = '\0';
-	return (newstr);
-}
 
 char	*ft_strdup(const char *s1)
 {
