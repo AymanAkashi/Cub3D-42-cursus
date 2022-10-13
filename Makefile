@@ -6,7 +6,7 @@
 #    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/13 14:18:47 by moseddik         ###   ########.fr        #
+#    Updated: 2022/10/13 14:29:17 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC				:= main.c \
 					parsing.c \
 					parsing_error.c \
 					parsing_tools.c \
-					parsing_color.c
+					parsing_color.c \
+					parsing_tools_2.c 
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
