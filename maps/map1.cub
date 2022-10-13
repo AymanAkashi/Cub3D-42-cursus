@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 NO      textures/black_wall.png
 SO      textures/black_wall.png
 WE      textures/black_wall.png
@@ -5,7 +12,11 @@ EA      textures/black_wall.png
 
 
 F 220,100,0
-C 225,30,0
+C 10,255,0
+
+
+
+
 
 
         1111111111111111111111111
