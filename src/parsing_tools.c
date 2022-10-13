@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:43:27 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/09 17:56:41 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:25:11 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_bool	check_path(char	*path)
 {
-	char	*src;
 	int		fd;
 	int		i;
+	char	*src;
 
 	i = 0;
 	if (!path)
@@ -39,16 +39,6 @@ t_bool	check_path(char	*path)
 	return (_true);
 }
 
-t_bool	check_order(int type, int *c)
-{
-	if (type != *c)
-	{
-		*c = -1;
-		return (_false);
-	}
-	return (_true);
-}
-
 t_type	check_type(char *str)
 {
 	if (!ft_strcmp(str, "NO"))
@@ -59,6 +49,10 @@ t_type	check_type(char *str)
 		return (WE);
 	else if (!ft_strcmp(str, "EA"))
 		return (EA);
+	else if (!ft_strcmp(str, "F"))
+		return (F);
+	else if (!ft_strcmp(str, "C"))
+		return (C);
 	else
 		return (-1);
 }
@@ -89,5 +83,19 @@ int	check_format(char *file)
 	free(format);
 	if (j == 4)
 		return (_true);
+	return (_false);
+}
+
+t_bool	check_newline(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+			return (_true);
+		i++;
+	}
 	return (_false);
 }
