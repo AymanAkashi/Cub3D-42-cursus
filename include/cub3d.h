@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/13 14:20:15 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:30:00 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ t_color		get_color(char *line);
 t_bool		check_newline(char *line);
 t_bool		check_digit(char **args);
 char		*get_str(char *line);
-
-
-
+t_bool		check_line(char *line);
 
 #endif
