@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/13 14:30:00 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:03:11 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,12 @@ void		ft_d_lstadd_back(t_compass **alst, t_compass *new);
 // cub tools functions
 char		*append_char(char *str, char c);
 
-// parsing functions
+// error management functions
 void		error_file(int fd);
 void		error_infomation(int c);
+void		error_map(int c);
+
+// parsing functions
 t_bool		check_path(char	*path);
 t_type		check_type(char *str);
 char		*get_path(char *str);
@@ -100,5 +103,14 @@ t_bool		check_newline(char *line);
 t_bool		check_digit(char **args);
 char		*get_str(char *line);
 t_bool		check_line(char *line);
+
+// Parsing map functions
+void		parsing_map(char *line, t_cub *cub, int fd);
+int			check_line_map(char *line);
+t_bool		check_char(char *line);
+void		check_map(char **map);
+
+//free data functions
+void		free_tab(char **tab);
 
 #endif

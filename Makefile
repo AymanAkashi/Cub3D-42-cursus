@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
+#    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/13 14:29:17 by moseddik         ###   ########.fr        #
+#    Updated: 2022/10/14 17:03:23 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ SRC				:= main.c \
 					parsing_error.c \
 					parsing_tools.c \
 					parsing_color.c \
-					parsing_tools_2.c 
+					parsing_tools_2.c \
+					parsing_map.c	\
+					parsing_map2.c	\
+					free_data.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
