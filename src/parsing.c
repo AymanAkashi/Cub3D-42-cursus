@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/13 14:24:19 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:05:27 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	print_list(t_compass *list, t_cub *cub)
 	}
 	printf("type %s == color: %d, %d, %d\n",str[cub->floor.type], cub->floor._r, cub->floor._g, cub->floor._b);
 	printf("type %s == color: %d, %d, %d\n",str[cub->celling.type], cub->celling._r, cub->celling._g, cub->celling._b);
+	for(int i = 0; cub->map[i]; i++)
+		printf("%s", cub->map[i]);
 }
 //****************************************************************************//
 
@@ -100,9 +102,25 @@ void	scan_file(int fd, t_cub *cub, int c)
 	while (line)
 	{
 		if (parse_compass(cub, &c, line) == _true)
+		{
+			line = get_next_line(fd);
 			break ;
+		}
 		line = get_next_line(fd);
 	}
+	while (line)
+	{
+		c = (check_line_map(line));
+		if (c == 1)
+		{
+			parsing_map(line, cub, fd);
+			break ;
+		}
+		else if (c == -1)
+			error_map(0);
+		line = get_next_line(fd);
+	}
+	check_map(cub->map);
 }
 
 void	parsing(char *map, t_cub *cub)
