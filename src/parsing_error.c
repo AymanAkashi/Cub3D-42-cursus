@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:39:49 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/11 11:11:33 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:26:21 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,12 @@ void	error_infomation(int c)
 		(red(), printf("Cub3D :( Error information\n"), reset());
 	else
 		(red(), printf("Cub3D :( Invalid path\n"));
+	exit(EXIT_FAILURE);
+}
+
+void	error_map(int c)
+{
+	if (c == 0)
+		(red(), printf("Cub3D :( Invalid map\n"), reset());
 	exit(EXIT_FAILURE);
 }
