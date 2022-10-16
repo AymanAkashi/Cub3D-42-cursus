@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:21:07 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/13 14:25:24 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:26:29 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_bool	check_digit(char **args)
 		j = 0;
 		while (args[i][j])
 		{
-			if (!ft_isdigit(args[i][j]) && args[i][j] != ' '
-				&& args[i][j] != '\t')
+			if (!ft_isdigit(args[i][j]) && args[i][j] != ' ')
 				return (_false);
 			j++;
 		}
@@ -42,7 +41,7 @@ char	*get_str(char *line)
 
 	i = 0;
 	str = NULL;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	while (line[i] && (line[i] == ' ' || line[i] == '\n'))
 		i++;
 	while (line[i] && line[i] != '\n')
 		str = append_char(str, line[i++]);
@@ -56,9 +55,9 @@ t_bool	check_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	while (line[i] && (line[i] == ' ' || line[i] == '\n'))
 		i++;
-	if (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+	if (line[i] && line[i] != ' ' && line[i] != '\n')
 		return (_false);
 	return (_true);
 }

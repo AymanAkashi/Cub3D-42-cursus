@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:52:54 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/14 17:05:15 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:42:23 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool	check_char(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n'
+		if (line[i] != ' ' && line[i] != '\n'
 			&& line[i] != '0' && line[i] != '1' && line[i] != 'N'
 			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
 			return (_false);
@@ -32,7 +32,7 @@ int	check_line_map(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	while (line[i] && (line[i] == ' ' || line[i] == '\n'))
 		i++;
 	if (line[i] && check_char(&line[i]))
 		return (1);
@@ -72,15 +72,27 @@ char	**dynamique_tab(char **tab, char *line)
 void	parsing_map(char *line, t_cub *cub, int fd)
 {
 	int	i;
+	int	c;
 
 	i = 0;
-	(void)cub;
 	while (line)
 	{
-		if (check_line_map(line) == 1)
-			cub->map = dynamique_tab(cub->map, line);
-		else
+		c = check_line_map(line);
+		if (c == 1)
+		{
+			while (line)
+			{
+				if (check_line_map(line) == 1)
+					cub->map = dynamique_tab(cub->map, line);
+				else
+					error_map(0);
+				line = get_next_line(fd);
+			}
+		}
+		else if (c == -1)
 			error_map(0);
 		line = get_next_line(fd);
 	}
+	if (c == 0)
+		error_map(1);
 }

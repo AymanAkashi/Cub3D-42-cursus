@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:43:27 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/13 14:25:11 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:37:07 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_bool	check_path(char	*path)
 	i = 0;
 	if (!path)
 		return (_false);
-	while (path[i] && path[i] != '\n' && path[i] != '\t' && path[i] != ' ')
+	while (path[i] && path[i] != '\n' && path[i] != ' ')
 		i++;
 	src = ft_calloc(sizeof(char), i + 1);
 	ft_memcpy(src, path, i);
-	while (path[i] && (path[i] == ' ' || path[i] == '\t' || path[i] == '\n'))
+	while (path[i] && (path[i] == ' ' || path[i] == '\n'))
 		i++;
 	if (path[i] != '\0' && path[i] != '\n')
 	{
@@ -62,7 +62,7 @@ char	*get_path(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+	while (str[i] && str[i] == ' ')
 		i++;
 	if (!str[i] || str[i] == '\n')
 		return ("");
@@ -93,7 +93,7 @@ t_bool	check_newline(char *line)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		if (line[i] != ' ' && line[i] != '\t')
+		if (line[i] != ' ')
 			return (_true);
 		i++;
 	}

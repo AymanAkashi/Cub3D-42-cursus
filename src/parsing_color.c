@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:12:33 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/13 14:25:01 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:26:09 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_color	get_color(char *line)
 	t_color	color;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+	while (line[i] && line[i] == ' ')
 		i++;
 	tmp = append_char(NULL, line[i++]);
 	str = get_str(&line[i]);
@@ -90,7 +90,7 @@ void	parse_color(t_cub *cub, int *c, char *line)
 	int		i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+	while (line[i] && line[i] == ' ')
 		i++;
 	type = line[i];
 	if (check_newline(line))
