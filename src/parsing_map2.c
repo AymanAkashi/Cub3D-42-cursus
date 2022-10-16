@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/14 17:04:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:42:54 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,37 @@ void	checking_valid_map(char **map, int i, int j)
 		error_map(0);
 }
 
-void	check_map(char **map)
+t_bool	player_posistion(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (_true);
+	return (_false);
+}
+
+void	check_map(char **map, t_cub *cub)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (map && map[i])
+	i = -1;
+	while (map && map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
 			if (check_char(map[i]) == _false)
 				error_map(0);
-			if (map[i][j] == '0')
+			if (player_posistion(map[i][j]) && cub->player.x == -1)
+			{
+					cub->player.x = j;
+					cub->player.y = i;
+			}
+			else if (player_posistion(map[i][j]) && cub->player.x != -1)
+				error_map(0);
+			if (map[i][j] == '0' || player_posistion(map[i][j]))
 				checking_valid_map(map, i, j);
-			j++;
 		}
-		i++;
 	}
+	if (cub->player.x == -1 || map[i - 1][j - 1] == '\n')
+		error_map(0);
 }

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/14 17:05:27 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:40:43 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_compass	*scan_line(char *line)
 
 	i = 0;
 	content = NULL;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	while (line[i] && (line[i] == ' ' || line[i] == '\n'))
 		i++;
 	if (!line || !line[i])
 		return (NULL);
-	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+	while (line[i] && line[i] != ' ' && line[i] != '\n')
 		content = append_char(content, line[i++]);
 	compass = ft_d_lstnew(get_path(&line[i]), check_type(content));
 	if ((int)check_type(content) == -1)
@@ -56,7 +56,7 @@ int	check_state(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t' || line[i] == '\n'))
+	while (line[i] && (line[i] == ' ' || line[i] == '\n'))
 		i++;
 	if (!line[i])
 		return (0);
@@ -108,19 +108,8 @@ void	scan_file(int fd, t_cub *cub, int c)
 		}
 		line = get_next_line(fd);
 	}
-	while (line)
-	{
-		c = (check_line_map(line));
-		if (c == 1)
-		{
-			parsing_map(line, cub, fd);
-			break ;
-		}
-		else if (c == -1)
-			error_map(0);
-		line = get_next_line(fd);
-	}
-	check_map(cub->map);
+	parsing_map(line, cub, fd);
+	check_map(cub->map, cub);
 }
 
 void	parsing(char *map, t_cub *cub)
@@ -130,6 +119,7 @@ void	parsing(char *map, t_cub *cub)
 
 	c = 0;
 	fd = open(map, O_RDONLY | O_EXCL);
+	init_data(cub);
 	if (fd == -1 || !check_format(map))
 		error_file(fd);
 	scan_file(fd, cub, c);
