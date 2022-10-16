@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:39:49 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/14 16:26:21 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:12:15 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	error_map(int c)
 {
 	if (c == 0)
 		(red(), printf("Cub3D :( Invalid map\n"), reset());
+	else if (c == 1)
+		(red(), printf("Cub3D :( Map not found\n"), reset());
 	exit(EXIT_FAILURE);
 }
