@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/14 17:03:11 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/16 22:41:34 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_color
 	int		_b;
 }	t_color;
 
+typedef struct s_pos
+{
+	int		x;
+	int		y;
+}	t_pos;
+
 // main struct data
 typedef struct s_cub
 {
@@ -60,6 +66,7 @@ typedef struct s_cub
 	char		**map;
 	t_color		floor;
 	t_color		celling;
+	t_pos		player;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -69,6 +76,9 @@ typedef enum e_bool
 	_false,
 	_true
 }	t_bool;
+
+// Init data
+void		init_data(t_cub *cub);
 
 // Coloring output functions
 void		red(void);
@@ -108,7 +118,7 @@ t_bool		check_line(char *line);
 void		parsing_map(char *line, t_cub *cub, int fd);
 int			check_line_map(char *line);
 t_bool		check_char(char *line);
-void		check_map(char **map);
+void		check_map(char **map, t_cub *cub);
 
 //free data functions
 void		free_tab(char **tab);

@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/14 17:03:23 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/10/16 22:40:59 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC				:= main.c \
 					parsing_tools_2.c \
 					parsing_map.c	\
 					parsing_map2.c	\
-					free_data.c
+					free_data.c \
+					init_data.c 
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
