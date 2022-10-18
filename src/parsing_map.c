@@ -6,11 +6,18 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:52:54 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/16 22:42:23 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:09:07 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+char	*gnl_line(char *line, int fd)
+{
+	if (line)
+		free(line);
+	return (get_next_line(fd));
+}
 
 t_bool	check_char(char *line)
 {
@@ -85,14 +92,14 @@ void	parsing_map(char *line, t_cub *cub, int fd)
 				if (check_line_map(line) == 1)
 					cub->map = dynamique_tab(cub->map, line);
 				else
-					error_map(0);
-				line = get_next_line(fd);
+					error_map(0, cub);
+				line = gnl_line(line, fd);
 			}
 		}
 		else if (c == -1)
-			error_map(0);
-		line = get_next_line(fd);
+			error_map(0, cub);
+		line = gnl_line(line, fd);
 	}
 	if (c == 0)
-		error_map(1);
+		error_map(1, cub);
 }

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/16 22:41:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:15:44 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ void		reset(void);
 t_compass	*ft_d_lstnew(char *content, t_type type);
 void		ft_d_lstadd_front(t_compass **alst, t_compass *new);
 void		ft_d_lstadd_back(t_compass **alst, t_compass *new);
+void	    ft_d_lstclear(t_compass **lst);
+void	    ft_d_lstdelone(t_compass *lst);
 
 // cub tools functions
 char		*append_char(char *str, char c);
 
 // error management functions
-void		error_file(int fd);
-void		error_infomation(int c);
-void		error_map(int c);
+void		error_file(int fd, t_cub *cub);
+void		error_infomation(int c, t_cub *cub);
+void		error_map(int c, t_cub *cub);
 
 // parsing functions
 t_bool		check_path(char	*path);
@@ -107,11 +109,11 @@ char		*get_path(char *str);
 int			check_format(char *file);
 void		parse_color(t_cub *cub, int *c, char *line);
 int			count_vergul(char *str);
-t_color		get_color_value(char *str, t_type type);
-t_color		get_color(char *line);
+t_color		get_color_value(char *str, t_type type, t_cub *cub);
+t_color		get_color(char *line, t_cub *cub);
 t_bool		check_newline(char *line);
 t_bool		check_digit(char **args);
-char		*get_str(char *line);
+char		*get_str(char *line, t_cub *cub);
 t_bool		check_line(char *line);
 
 // Parsing map functions
@@ -119,8 +121,10 @@ void		parsing_map(char *line, t_cub *cub, int fd);
 int			check_line_map(char *line);
 t_bool		check_char(char *line);
 void		check_map(char **map, t_cub *cub);
+char		*gnl_line(char *line, int fd);
 
 //free data functions
 void		free_tab(char **tab);
+void		free_data(t_cub *cub);
 
 #endif

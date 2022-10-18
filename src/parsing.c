@@ -6,13 +6,13 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/16 22:40:43 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:10:21 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_compass	*scan_line(char *line)
+t_compass	*scan_line(char *line, t_cub *cub)
 {
 	int			i;
 	char		*content;
@@ -28,7 +28,8 @@ t_compass	*scan_line(char *line)
 		content = append_char(content, line[i++]);
 	compass = ft_d_lstnew(get_path(&line[i]), check_type(content));
 	if ((int)check_type(content) == -1)
-		error_infomation(-1);
+		error_infomation(-1, cub);
+	free(content);
 	return (compass);
 }
 
@@ -75,17 +76,17 @@ t_bool	parse_compass(t_cub *cub, int *c, char *line)
 
 	compass = NULL;
 	if (check_state(line) == 2)
-		compass = scan_line(line);
+		compass = scan_line(line, cub);
 	else if (check_state(line) == 1)
 		parse_color(cub, c, line);
 	else if (check_state(line) == 0)
 		return (_false);
 	else
-		error_infomation(-1);
+		error_infomation(-1, cub);
 	if (compass && check_state(line) == 2)
 	{
 		if (!check_path(compass->path))
-			error_infomation(*c);
+			error_infomation(*c, cub);
 		ft_d_lstadd_back(&cub->compass, compass);
 		(*c)++;
 	}
@@ -98,15 +99,16 @@ void	scan_file(int fd, t_cub *cub, int c)
 {
 	char		*line;
 
-	line = get_next_line(fd);
+	line = NULL;
+	line = gnl_line(line, fd);
 	while (line)
 	{
 		if (parse_compass(cub, &c, line) == _true)
 		{
-			line = get_next_line(fd);
+			line = gnl_line(line, fd);
 			break ;
 		}
-		line = get_next_line(fd);
+		line = gnl_line(line, fd);
 	}
 	parsing_map(line, cub, fd);
 	check_map(cub->map, cub);
@@ -121,7 +123,7 @@ void	parsing(char *map, t_cub *cub)
 	fd = open(map, O_RDONLY | O_EXCL);
 	init_data(cub);
 	if (fd == -1 || !check_format(map))
-		error_file(fd);
+		error_file(fd, cub);
 	scan_file(fd, cub, c);
 	print_list(cub->compass, cub);
 	close(fd);

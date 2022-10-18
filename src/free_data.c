@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 19:03:34 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/14 17:05:42 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:59:53 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,12 @@ void	free_tab(char **tab)
 	}
 	free(tab);
 	tab = NULL;
+}
+
+void	free_data(t_cub *cub)
+{
+	if (cub->map)
+		free_tab(cub->map);
+	if (cub->compass)
+		ft_d_lstclear(&cub->compass);
 }

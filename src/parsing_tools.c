@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:43:27 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/16 22:37:07 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:01:35 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_bool	check_path(char	*path)
 		return (_false);
 	}
 	fd = open(src, O_RDONLY | O_EXCL);
+	free(src);
 	if (fd == -1)
 		return (_false);
 	close(fd);

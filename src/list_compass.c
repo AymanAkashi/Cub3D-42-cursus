@@ -6,11 +6,35 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 15:46:50 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/09 17:55:37 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:06:16 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+void	ft_d_lstdelone(t_compass *lst)
+{
+	if (!lst)
+		return ;
+	free(lst->path);
+	lst->path = NULL;
+	free(lst);
+	lst = NULL;
+}
+
+void	ft_d_lstclear(t_compass **lst)
+{
+	t_compass	*tmp;
+
+	if (lst == NULL)
+		return ;
+	while (*lst != NULL)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		ft_d_lstdelone(tmp);
+	}
+}
 
 t_compass	*ft_d_lstnew(char *content, t_type type)
 {
@@ -21,7 +45,7 @@ t_compass	*ft_d_lstnew(char *content, t_type type)
 		return (NULL);
 	head->prev = NULL;
 	head->type = type;
-	head->path = ft_strdup(content);
+	head->path = content;
 	head->next = NULL;
 	return (head);
 }

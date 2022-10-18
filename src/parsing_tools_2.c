@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:21:07 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/16 22:26:29 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:15:52 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	check_digit(char **args)
 	return (_true);
 }
 
-char	*get_str(char *line)
+char	*get_str(char *line, t_cub *cub)
 {
 	int		i;
 	char	*str;
@@ -46,7 +46,7 @@ char	*get_str(char *line)
 	while (line[i] && line[i] != '\n')
 		str = append_char(str, line[i++]);
 	if (!str || !check_line(&line[i]))
-		error_infomation(0);
+		error_infomation(0, cub);
 	return (str);
 }
 
