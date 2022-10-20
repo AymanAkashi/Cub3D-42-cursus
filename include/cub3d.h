@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/20 09:57:28 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:09:30 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ void		free_data(t_cub *cub);
 
 // begin cub functions
 void		begin_cub(t_cub *cub);
+void		key_esc(mlx_key_data_t keydata, void* param);
 
 #endif
