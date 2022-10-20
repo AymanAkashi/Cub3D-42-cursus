@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/18 13:15:44 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/20 09:57:28 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@
 # include <fcntl.h>
 # include <string.h>
 # include <sys/errno.h>
+# include <math.h>
 
+#define BLOCK_SIZE 50
+#define COLOM_WIN 34
+#define ROW_WIN 14
+#define WIN_WIDTH (BLOCK_SIZE * COLOM_WIN)
+#define WIN_HEIGHT (BLOCK_SIZE * ROW_WIN)
 // enum compass
 typedef enum e_type
 {
@@ -59,6 +65,18 @@ typedef struct s_pos
 	int		y;
 }	t_pos;
 
+// Struct for player
+typedef struct s_player
+{
+	t_pos		pos;
+	int			length;
+	int			turn_dir;//1 for right -1 for left
+	int			walk_dir;//1 for forward -1 for backward
+	double		rot_angle;
+	double		move_speed;
+	double		rot_speed;
+}	t_player;
+
 // main struct data
 typedef struct s_cub
 {
@@ -66,7 +84,9 @@ typedef struct s_cub
 	char		**map;
 	t_color		floor;
 	t_color		celling;
-	t_pos		player;
+	t_player	*player;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -126,5 +146,8 @@ char		*gnl_line(char *line, int fd);
 //free data functions
 void		free_tab(char **tab);
 void		free_data(t_cub *cub);
+
+// begin cub functions
+void		begin_cub(t_cub *cub);
 
 #endif

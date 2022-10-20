@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/18 13:13:00 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/20 09:39:28 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ void	check_map(char **map, t_cub *cub)
 		{
 			if (check_char(map[i]) == _false)
 				error_map(0, cub);
-			if (player_posistion(map[i][j]) && cub->player.x == -1)
+			if (player_posistion(map[i][j]) && cub->player->pos.x == -1)
 			{
-					cub->player.x = j;
-					cub->player.y = i;
+					cub->player->pos.x = j;
+					cub->player->pos.y = i;
 			}
-			else if (player_posistion(map[i][j]) && cub->player.x != -1)
+			else if (player_posistion(map[i][j]) && cub->player->pos.x != -1)
 				error_map(0, cub);
 			if (map[i][j] == '0' || player_posistion(map[i][j]))
 				checking_valid_map(map, i, j, cub);
 		}
 	}
-	if (cub->player.x == -1 || map[i - 1][j - 1] == '\n')
+	if (cub->player->pos.x == -1 || map[i - 1][j - 1] == '\n')
 		error_map(0, cub);
 }

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:20:47 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/18 12:44:17 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/20 09:56:32 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 	else if (ac == 1)
 		return (red(), printf("Select a map as argument\n"), EXIT_FAILURE);
 	parsing(av[1], cub);
+	begin_cub(cub);
 	free_data(cub);
 	system("leaks cub3d");
 	return (EXIT_SUCCESS);

@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_data.c                                        :+:      :+:    :+:   */
+/*   begin_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 19:03:34 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/20 09:36:32 by aaggoujj         ###   ########.fr       */
+/*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
+/*   Updated: 2022/10/20 09:56:45 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	free_tab(char **tab)
+void	put_pixel(size_t r, size_t g, size_t b, t_cub *cub)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (tab[i])
+	while (i < cub->img->width * cub->img->height * sizeof(int))
 	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
+		cub->img->pixels[i] = r;
+		cub->img->pixels[i + 1] = g;
+		cub->img->pixels[i + 2] = b;
+		cub->img->pixels[i + 3] = 255;
+		i += sizeof(int);
 	}
-	free(tab);
-	tab = NULL;
 }
 
-void	free_data(t_cub *cub)
+void	begin_cub(t_cub *cub)
 {
-	if (cub->map)
-		free_tab(cub->map);
-	if (cub->compass)
-		ft_d_lstclear(&cub->compass);
-	free(cub->player);
+	cub->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cub3D", _true);
+	cub->img = mlx_new_image(cub->mlx, WIN_WIDTH, WIN_HEIGHT);
+	mlx_loop(cub->mlx);
 }
