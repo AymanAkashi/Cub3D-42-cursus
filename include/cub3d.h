@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/20 10:09:30 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/23 21:55:14 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 # include <math.h>
 
 #define BLOCK_SIZE 50
-#define COLOM_WIN 34
-#define ROW_WIN 14
+#define COLOM_WIN 38
+#define ROW_WIN 12
 #define WIN_WIDTH (BLOCK_SIZE * COLOM_WIN)
 #define WIN_HEIGHT (BLOCK_SIZE * ROW_WIN)
+
 // enum compass
 typedef enum e_type
 {
@@ -69,9 +70,12 @@ typedef struct s_pos
 typedef struct s_player
 {
 	t_pos		pos;
+	t_pos		last_pos;
 	int			length;
-	int			turn_dir;//1 for right -1 for left
-	int			walk_dir;//1 for forward -1 for backward
+	int			turn_dir; // 1 for right -1 for left
+	int			walk_dir; // 1 for forward -1 for backward
+	int			walk_side; // 1 for right -1 for left
+	int			radius;
 	double		rot_angle;
 	double		move_speed;
 	double		rot_speed;
@@ -87,6 +91,8 @@ typedef struct s_cub
 	t_player	*player;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*player_img;
+	mlx_image_t	*line;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -149,6 +155,18 @@ void		free_data(t_cub *cub);
 
 // begin cub functions
 void		begin_cub(t_cub *cub);
-void		key_esc(mlx_key_data_t keydata, void* param);
+void		init_player(t_cub	*cub);
+
+// Events functions
+void		key_esc(void* param);
+void		move_player_realese(mlx_key_data_t keydata, void *param);
+void		move_player(void *param);
+void		move(void *param);
+void		update_player(t_player *player, t_cub *cub);
+void		render_player(void *param);
+void		hook(void *param);
+t_bool		check_pos(int x, int y, char **map);
+void		draw_circle(t_cub *cub, int x, int y, int color);
+void		dda(t_cub *cub, int X0, int Y0, int X1, int Y1);
 
 #endif
