@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/23 21:55:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/10/25 22:13:23 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <MLX42.h>
+# include "input.h"
+# include <mlx.h>
 # include "../lib/libft/include/libft.h"
 # include "get_next_line.h"
 # include <unistd.h>
@@ -25,11 +26,23 @@
 # include <sys/errno.h>
 # include <math.h>
 
-#define BLOCK_SIZE 50
-#define COLOM_WIN 38
-#define ROW_WIN 12
-#define WIN_WIDTH (BLOCK_SIZE * COLOM_WIN)
-#define WIN_HEIGHT (BLOCK_SIZE * ROW_WIN)
+# define BLOCK_SIZE 50
+# define COLOM_WIN 50
+# define ROW_WIN 20
+# define WIN_WIDTH (BLOCK_SIZE*COLOM_WIN)
+# define WIN_HEIGHT (BLOCK_SIZE*ROW_WIN)
+
+// DDA variables
+
+typedef struct s_DDA{
+	double	x;
+	double	y;
+	int		dx;
+	int		dy;
+	double	steps;
+	double	xinc;
+	double	yinc;
+}				t_DDA;
 
 // enum compass
 typedef enum e_type
@@ -62,13 +75,14 @@ typedef struct s_color
 
 typedef struct s_pos
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 }	t_pos;
 
 // Struct for player
 typedef struct s_player
 {
+	char		direction;
 	t_pos		pos;
 	t_pos		last_pos;
 	int			length;
@@ -84,15 +98,26 @@ typedef struct s_player
 // main struct data
 typedef struct s_cub
 {
-	t_compass	*compass;
-	char		**map;
-	t_color		floor;
-	t_color		celling;
-	t_player	*player;
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*player_img;
-	mlx_image_t	*line;
+	t_compass		*compass;
+	char			**map;
+	t_color			floor;
+	t_color			celling;
+	t_player		*player;
+	int				win_width;
+	int				win_height;
+	unsigned int	*addr;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	int				pixel;
+	double			x;
+	double			y;
+	void			*wall;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	void			*player_img;
+	void			*line;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -117,8 +142,8 @@ void		reset(void);
 t_compass	*ft_d_lstnew(char *content, t_type type);
 void		ft_d_lstadd_front(t_compass **alst, t_compass *new);
 void		ft_d_lstadd_back(t_compass **alst, t_compass *new);
-void	    ft_d_lstclear(t_compass **lst);
-void	    ft_d_lstdelone(t_compass *lst);
+void		ft_d_lstclear(t_compass **lst);
+void		ft_d_lstdelone(t_compass *lst);
 
 // cub tools functions
 char		*append_char(char *str, char c);
@@ -148,6 +173,7 @@ int			check_line_map(char *line);
 t_bool		check_char(char *line);
 void		check_map(char **map, t_cub *cub);
 char		*gnl_line(char *line, int fd);
+t_bool		player_posistion(char c);
 
 //free data functions
 void		free_tab(char **tab);
@@ -156,10 +182,10 @@ void		free_data(t_cub *cub);
 // begin cub functions
 void		begin_cub(t_cub *cub);
 void		init_player(t_cub	*cub);
+void		set_angle(t_cub *cub);
 
 // Events functions
-void		key_esc(void* param);
-void		move_player_realese(mlx_key_data_t keydata, void *param);
+void		key_esc(void *param);
 void		move_player(void *param);
 void		move(void *param);
 void		update_player(t_player *player, t_cub *cub);
@@ -167,6 +193,16 @@ void		render_player(void *param);
 void		hook(void *param);
 t_bool		check_pos(int x, int y, char **map);
 void		draw_circle(t_cub *cub, int x, int y, int color);
-void		dda(t_cub *cub, int X0, int Y0, int X1, int Y1);
+void		dda(t_cub *cub, t_pos p0, t_pos p1);
+
+// Hook functions
+int			end_game(t_cub *cub);
+void		move_key(int key, t_cub *cub);
+int			input_release(int key, t_cub *cub);
+int			input(int key, t_cub *cub);
+int			loop(void *param);
+void		render(t_cub *cub);
+t_bool		is_wall(int x, int y, t_cub *cub);
+void		put_pixel(int color, t_cub *cub);
 
 #endif

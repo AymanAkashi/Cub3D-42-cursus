@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/20 09:39:28 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:17:12 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	check_map(char **map, t_cub *cub)
 			{
 					cub->player->pos.x = j;
 					cub->player->pos.y = i;
+					cub->player->direction = map[i][j];
 			}
 			else if (player_posistion(map[i][j]) && cub->player->pos.x != -1)
 				error_map(0, cub);
