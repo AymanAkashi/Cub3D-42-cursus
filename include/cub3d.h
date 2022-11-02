@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/25 22:13:23 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:16:42 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,38 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 50
+# define BLOCK_SIZE 32
 # define COLOM_WIN 50
 # define ROW_WIN 20
 # define WIN_WIDTH (BLOCK_SIZE*COLOM_WIN)
 # define WIN_HEIGHT (BLOCK_SIZE*ROW_WIN)
+# define FOV 60
+# define FOV_ANGLE (FOV * (M_PI / 180))
+# define NUM_RAYS (WIN_WIDTH)
+
+// state enum
+typedef enum e_state
+{
+	facing_up,
+	facing_down
+}	t_state;
+
+// rays data
+typedef struct s_rays
+{
+	double	ray_angle;
+	double	wall_hit_x;
+	double	wall_hit_y;
+	double	distance;
+	t_state	state;
+}				t_rays;
 
 // DDA variables
-
 typedef struct s_DDA{
 	double	x;
 	double	y;
-	int		dx;
-	int		dy;
+	double	dx;
+	double	dy;
 	double	steps;
 	double	xinc;
 	double	yinc;
@@ -99,6 +118,7 @@ typedef struct s_player
 typedef struct s_cub
 {
 	t_compass		*compass;
+	t_rays			*rays;
 	char			**map;
 	t_color			floor;
 	t_color			celling;
@@ -193,7 +213,7 @@ void		render_player(void *param);
 void		hook(void *param);
 t_bool		check_pos(int x, int y, char **map);
 void		draw_circle(t_cub *cub, int x, int y, int color);
-void		dda(t_cub *cub, t_pos p0, t_pos p1);
+void		dda(t_cub *cub, t_pos p0, t_pos p1, int color);
 
 // Hook functions
 int			end_game(t_cub *cub);

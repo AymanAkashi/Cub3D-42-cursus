@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 22:40:32 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/25 21:51:28 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:55:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	set_angle(t_cub *cub)
 {
 	if (cub->player->direction == 'N')
-		cub->player->rot_angle = -(M_PI / 2);
+		cub->player->rot_angle = 3 * (M_PI / 2);
 	else if (cub->player->direction == 'S')
 		cub->player->rot_angle = M_PI / 2;
 	else if (cub->player->direction == 'W')
@@ -36,11 +36,26 @@ void	init_player(t_cub	*cub)
 	cub->player->pos.x = -1;
 	cub->player->pos.y = -1;
 	cub->player->length = 10;
-	cub->player->move_speed = 5;
+	cub->player->move_speed = 1;
 	cub->player->rot_speed = 2 * (M_PI / 180);
 	cub->player->turn_dir = 0;
 	cub->player->walk_dir = 0;
 	cub->player->radius = 10;
+}
+
+void	init_rays(t_cub *cub)
+{
+	cub->rays = ft_calloc(1, sizeof(t_rays));
+	if (!(cub->rays))
+	{
+		(red(),printf("Cub3D :( malloc failed to allocate rays data\n"),reset());
+		free_data(cub);
+		exit(EXIT_FAILURE);
+	}
+	cub->rays->distance = 0;
+	cub->rays->ray_angle = 0;
+	cub->rays->wall_hit_x = 0;
+	cub->rays->wall_hit_y = 0;
 }
 
 void	init_data(t_cub *cub)
@@ -54,4 +69,5 @@ void	init_data(t_cub *cub)
 	cub->compass = NULL;
 	cub->map = NULL;
 	init_player(cub);
+	init_rays(cub);
 }

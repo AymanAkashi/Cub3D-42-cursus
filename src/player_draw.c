@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/25 22:10:06 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:28:06 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 	}
 }
 
-void	dda(t_cub *cub, t_pos p0, t_pos p1)
+void	dda(t_cub *cub, t_pos p0, t_pos p1, int color)
 {
 	t_DDA	dda;
 	int		i;
 
 	dda.dx = p1.x - p0.x;
 	dda.dy = p1.y - p0.y;
-	if (abs(dda.dx) > abs(dda.dy))
-		dda.steps = abs(dda.dx);
+	if (fabs(dda.dx) > fabs(dda.dy))
+		dda.steps = fabs(dda.dx);
 	else
-		dda.steps = abs(dda.dy);
+		dda.steps = fabs(dda.dy);
 	dda.xinc = dda.dx / (float)dda.steps;
 	dda.yinc = dda.dy / (float)dda.steps;
 	dda.x = p0.x;
@@ -80,9 +80,9 @@ void	dda(t_cub *cub, t_pos p0, t_pos p1)
 	i = -1;
 	while (++i <= dda.steps)
 	{
-		cub->x = dda.x;
-		cub->y = dda.y;
-		put_pixel(0xFF0000FF, cub);
+		cub->x = round(dda.x);
+		cub->y = round(dda.y);
+		put_pixel(color, cub);
 		dda.x += dda.xinc;
 		dda.y += dda.yinc;
 	}
