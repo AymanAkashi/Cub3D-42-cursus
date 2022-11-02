@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:43 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/25 21:53:59 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/03 00:22:34 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ int	loop(void *param)
 	t_cub	*cub;
 
 	cub = (t_cub *)param;
-	cub->img = mlx_new_image(cub->mlx, cub->win_width, cub->win_height);
-	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
-			&cub->size_line, &cub->endian);
 	render(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-	mlx_destroy_image(cub->mlx, cub->img);
+	// mlx_destroy_image(cub->mlx, cub->img);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/25 22:10:24 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/03 00:22:40 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	put_pixel(int color, t_cub *cub)
 {
+	if (cub->y < cub->win_height && cub->x < cub->win_width && cub->y >= 0 && cub->x >= 0)
 	cub->addr[(int)cub->y * cub->win_width + (int)cub->x] = color;
 }
 
@@ -26,7 +27,7 @@ t_bool	is_wall(int x, int y, t_cub *cub)
 		return (_false);
 	tile_x = floor(x / BLOCK_SIZE);
 	tile_y = floor(y / BLOCK_SIZE);
-	if (cub->map[tile_y][tile_x] != '0' &&
+	if (cub->map[tile_y] && cub->map[tile_y][tile_x] != '0' &&
 		!player_posistion(cub->map[tile_y][tile_x]))
 		return (_false);
 	return (_true);
@@ -70,6 +71,9 @@ void	begin_cub(t_cub *cub)
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, cub->win_width,
 			cub->win_height, "cub3D");
+	cub->img = mlx_new_image(cub->mlx, cub->win_width, cub->win_height);
+	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
+			&cub->size_line, &cub->endian);
 	mlx_hook(cub->win, 17, 0, end_game, cub);
 	mlx_hook(cub->win, 02, 1L << 0, input, cub);
 	mlx_hook(cub->win, 03, 1L << 1, input_release, cub);

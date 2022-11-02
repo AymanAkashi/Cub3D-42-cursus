@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/02 21:16:42 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/02 23:19:27 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@
 typedef enum e_state
 {
 	facing_up,
-	facing_down
+	facing_down,
+	facing_left,
+	facing_right
 }	t_state;
 
 // rays data
@@ -225,4 +227,5 @@ void		render(t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
 void		put_pixel(int color, t_cub *cub);
 
+double normalize_angle(double angle);
 #endif
