@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/03 00:50:03 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:49:56 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,37 @@ t_state	checking_state(double ray_angle, int check)
 	}
 }
 
+
+t_bool	check_wall(int x, int y, t_cub *cub)
+{
+	int	tile_x;
+	int	tile_y;
+
+	if (x < 0 || x > cub->win_width || y < 0 || y > cub->win_height)
+		return (_false);
+	tile_x = floor(x / BLOCK_SIZE);
+	tile_y = floor(y / BLOCK_SIZE);
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1'))
+		return (_false);
+	tile_x = floor((x - 1) / BLOCK_SIZE);
+	tile_y = floor(y / BLOCK_SIZE);
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1'))
+		return (_false);
+	tile_x = floor(x / BLOCK_SIZE);
+	tile_y = floor((y - 1) / BLOCK_SIZE);
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1'))
+		return (_false);
+	tile_x = floor((x + 1) / BLOCK_SIZE);
+	tile_y = floor(y / BLOCK_SIZE);
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1'))
+		return (_false);
+	tile_x = floor(x / BLOCK_SIZE);
+	tile_y = floor((y + 1) / BLOCK_SIZE);
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1'))
+		return (_false);
+	return (_true);
+}
+
 t_pos	check_vertical(t_cub *cub, double ray_angle)
 {
 	double	x_intercept;
@@ -98,14 +129,13 @@ t_pos	check_vertical(t_cub *cub, double ray_angle)
 		y_step *= -1;
 	while(1)
 	{
-		if (!is_wall(x_intercept, y_intercept, cub))
+		if (!check_wall(x_intercept, y_intercept, cub))
 			break ;
 		x_intercept += x_step;
 		y_intercept += y_step;
 	}
 	return ((t_pos){x_intercept, y_intercept});
 }
-
 
 t_pos	check_horizontal(t_cub *cub, double ray_angle)
 {
@@ -124,12 +154,12 @@ t_pos	check_horizontal(t_cub *cub, double ray_angle)
 	y_step = BLOCK_SIZE;
 	if (cub->rays->state == facing_up)
 		y_step *= -1;
-	x_step = fabs(y_step / tan(ray_angle));
+	x_step = fabs(BLOCK_SIZE / tan(ray_angle));
 	if (ray_angle > M_PI/2 && ray_angle < 3 * M_PI/2)
 		x_step *= -1;
 	while (1)
 	{
-		if (!is_wall(x_intercept, y_intercept, cub))
+		if (!check_wall(x_intercept, y_intercept, cub))
 			break ;
 		x_intercept += x_step;
 		y_intercept += y_step;
@@ -174,7 +204,6 @@ void cast_ray(t_cub *cub, double ray_angle)
 	pos_wall = finding_distance(cub->player->pos, h_intersection, v_intersection);
 	cub->rays->wall_hit_x = pos_wall.x;
 	cub->rays->wall_hit_y = pos_wall.y;
-	// blue(), printf("h_intersection.x = %f h_intersection.y = %f\n", h_intersection.x, h_intersection.y),reset();
 	// red(), printf("ray_angle = %f\n", ray_angle / (M_PI / 180)), reset();
 }
 

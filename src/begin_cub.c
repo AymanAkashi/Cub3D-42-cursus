@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/03 00:22:40 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/03 15:56:27 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,41 @@ void	put_pixel(int color, t_cub *cub)
 	cub->addr[(int)cub->y * cub->win_width + (int)cub->x] = color;
 }
 
+t_bool	check_circle(int x, int y, int radius, t_cub *cub)
+{
+	int new_x;
+	int new_y;
+	int	tile_x;
+	int	tile_y;
+
+	radius = radius * 2 / 3;
+	new_x = x - radius;
+	new_y = y - radius;
+	tile_x = floor(new_x / BLOCK_SIZE);
+	tile_y = floor(new_y / BLOCK_SIZE);
+	if (cub->map[tile_y] && cub->map[tile_y][tile_x] == '1')
+		return (_false);
+	new_x = x + radius;
+	new_y = y + radius;
+	tile_x = floor(new_x / BLOCK_SIZE);
+	tile_y = floor(new_y / BLOCK_SIZE);
+	if (cub->map[tile_y] && cub->map[tile_y][tile_x] == '1')
+		return (_false);
+	new_x = x + radius;
+	new_y = y - radius;
+	tile_x = floor(new_x / BLOCK_SIZE);
+	tile_y = floor(new_y / BLOCK_SIZE);
+	if (cub->map[tile_y] && cub->map[tile_y][tile_x] == '1')
+		return (_false);
+	new_x = x - radius;
+	new_y = y + radius;
+	tile_x = floor(new_x / BLOCK_SIZE);
+	tile_y = floor(new_y / BLOCK_SIZE);
+	if (cub->map[tile_y] && cub->map[tile_y][tile_x] == '1')
+		return (_false);
+	return (_true);
+}
+
 t_bool	is_wall(int x, int y, t_cub *cub)
 {
 	int	tile_x;
@@ -27,8 +62,7 @@ t_bool	is_wall(int x, int y, t_cub *cub)
 		return (_false);
 	tile_x = floor(x / BLOCK_SIZE);
 	tile_y = floor(y / BLOCK_SIZE);
-	if (cub->map[tile_y] && cub->map[tile_y][tile_x] != '0' &&
-		!player_posistion(cub->map[tile_y][tile_x]))
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1' || !check_circle(x, y, cub->player->radius, cub)))
 		return (_false);
 	return (_true);
 }
