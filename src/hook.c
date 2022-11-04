@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:43 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/03 00:22:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:51:34 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	loop(void *param)
 	cub = (t_cub *)param;
 	render(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-	// mlx_destroy_image(cub->mlx, cub->img);
 	return (EXIT_SUCCESS);
 }

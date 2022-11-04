@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/03 15:56:27 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:51:26 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	put_pixel(int color, t_cub *cub)
 {
-	if (cub->y < cub->win_height && cub->x < cub->win_width && cub->y >= 0 && cub->x >= 0)
-	cub->addr[(int)cub->y * cub->win_width + (int)cub->x] = color;
+	if (cub->y < WIN_HEIGHT && cub->x < WIN_WIDTH && cub->y >= 0 && cub->x >= 0)
+	cub->addr[(int)cub->y * WIN_WIDTH + (int)cub->x] = color;
 }
 
 t_bool	check_circle(int x, int y, int radius, t_cub *cub)
@@ -67,14 +67,6 @@ t_bool	is_wall(int x, int y, t_cub *cub)
 	return (_true);
 }
 
-void	update_map(void	*param)
-{
-	t_cub	*cub;
-
-	cub = (t_cub *)param;
-	render(cub);
-}
-
 void	get_win_size(t_cub *cub)
 {
 	int	i;
@@ -103,9 +95,8 @@ void	begin_cub(t_cub *cub)
 	cub->player->pos.x *= BLOCK_SIZE;
 	cub->player->pos.y *= BLOCK_SIZE;
 	cub->mlx = mlx_init();
-	cub->win = mlx_new_window(cub->mlx, cub->win_width,
-			cub->win_height, "cub3D");
-	cub->img = mlx_new_image(cub->mlx, cub->win_width, cub->win_height);
+	cub->win = mlx_new_window(cub->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	cub->img = mlx_new_image(cub->mlx, WIN_WIDTH, WIN_HEIGHT);
 	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
 			&cub->size_line, &cub->endian);
 	mlx_hook(cub->win, 17, 0, end_game, cub);

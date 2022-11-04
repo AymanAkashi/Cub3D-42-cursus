@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/02 22:51:58 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:55:21 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,57 @@ void	simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 	}
 }
 
-void	draw_circle(t_cub *cub, int x, int y, int color)
+void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
+{
+	int	j;
+	int nx;
+	int	ny;
+
+	j = 0;
+	if (incr_color.x == 1)
+	{
+		while (j < pos1.x)
+		{
+			cub->x = pos.x + j;
+			cub->y = pos.y + pos1.y;
+			nx = floor((cub->player->pos.x + j) / BLOCK_SIZE);
+			ny = floor((cub->player->pos.y + pos1.y) / BLOCK_SIZE);
+			if (ny < 0 || nx < 0 || ny >= cub->win_height / BLOCK_SIZE
+				|| nx >= cub->win_width / BLOCK_SIZE)
+				put_pixel(0x00000000, cub);
+			else if (cub->map[ny][nx] == '1')
+				put_pixel(0x003D0000, cub);
+			else if (cub->map[ny][nx] == ' ')
+				put_pixel(0x00000000, cub);
+			else
+				put_pixel(0x00950101, cub);
+			j++;
+		}
+	}
+	else
+	{
+		while (j > pos1.x)
+		{
+			cub->x = pos.x + j;
+			cub->y = pos.y + pos1.y;
+			nx = floor((cub->player->pos.x + j) / BLOCK_SIZE);
+			ny = floor((cub->player->pos.y + pos1.y) / BLOCK_SIZE);
+			if (ny < 0 || nx < 0 || ny >= cub->win_height / BLOCK_SIZE
+				|| nx >= cub->win_width / BLOCK_SIZE)
+				put_pixel(0x00000000, cub);
+			else if (cub->map[ny][nx] == '1')
+				put_pixel(0x003D0000, cub);
+			else if (cub->map[ny][nx] == ' ')
+				put_pixel(0x00000000, cub);
+			else
+				put_pixel(0x00950101, cub);
+			j--;
+		}
+	}
+}
+
+
+void	draw_circle_player(t_cub *cub, int x, int y, int color)
 {
 	double	i;
 	double	angle;
@@ -60,6 +110,36 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 				(t_pos){x1, y1}, cub, (t_pos){-1, color});
 		i += 0.1;
 	}
+}
+
+void	draw_circle(t_cub *cub, int x, int y, int color)
+{
+	double	i;
+	double	angle;
+	double	x1;
+	double	y1;
+
+	i = 0;
+	while (i < 360)
+	{
+		angle = i;
+		x1 = RADIUS_MAP * cos(angle * M_PI / 180);
+		y1 = RADIUS_MAP * sin(angle * M_PI / 180);
+		cub->x = x + x1;
+		cub->y = y + y1;
+		put_pixel(color, cub);
+		if (x1 > 0)
+			simple_draw((t_pos){x, y},
+				(t_pos){x1, y1}, cub, (t_pos){1, color});
+		else
+			simple_draw((t_pos){x, y},
+				(t_pos){x1, y1}, cub, (t_pos){-1, color});
+		i += 0.1;
+	}
+	draw_circle_player(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00A5C9CA);
+	dda(cub, (t_pos){x, y}, (t_pos){RADIUS_MAP + cos(cub->player->rot_angle)* 20,
+		WIN_HEIGHT - RADIUS_MAP + sin(cub->player->rot_angle) * 20}, 0x000F3D3E);
+	cast_all_rays(cub, x, y);
 }
 
 void	dda(t_cub *cub, t_pos p0, t_pos p1, int color)
