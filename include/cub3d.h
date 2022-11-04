@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/03 16:52:43 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 12:40:49 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 32
+# define BLOCK_SIZE 12
 # define COLOM_WIN 50
 # define ROW_WIN 20
-# define WIN_WIDTH (BLOCK_SIZE*COLOM_WIN)
-# define WIN_HEIGHT (BLOCK_SIZE*ROW_WIN)
+# define WIN_WIDTH 1080
+# define WIN_HEIGHT 720
+# define RADIUS_MAP 80
 # define FOV 60
 # define FOV_ANGLE (FOV * (M_PI / 180))
 # define NUM_RAYS (WIN_WIDTH)
@@ -226,6 +227,7 @@ int			loop(void *param);
 void		render(t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
 void		put_pixel(int color, t_cub *cub);
+void		cast_all_rays(t_cub *cub, int x, int y);;
 
 double normalize_angle(double angle);
 #endif
