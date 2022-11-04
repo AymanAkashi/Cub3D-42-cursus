@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 12:52:45 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:09:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,46 @@ void	cast_all_rays(t_cub *cub, int x, int y)
 	}
 }
 
+void	draw_celling(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < WIN_HEIGHT / 2)
+	{
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			cub->x = j;
+			cub->y = i;
+			put_pixel(cub->color_cell, cub);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_floor(t_cub *cub)
+{
+	int		i;
+	int		j;
+
+	i = WIN_HEIGHT / 2;
+	while (i < WIN_HEIGHT)
+	{
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			cub->x = j;
+			cub->y = i;
+			put_pixel(cub->color_floor, cub);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	render(t_cub *cub)
 {
 	int	x;
@@ -186,6 +226,8 @@ void	render(t_cub *cub)
 	x = cub->player->pos.x;
 	y = cub->player->pos.y;
 	update_player(cub->player, cub);
+	draw_celling(cub);
+	draw_floor(cub);
 	draw_circle(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00000000);
 	mlx_clear_window(cub->mlx, cub->win);
 }

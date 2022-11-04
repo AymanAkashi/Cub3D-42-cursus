@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 12:51:26 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:36:51 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,17 @@ void	get_win_size(t_cub *cub)
 	cub->win_height = i * BLOCK_SIZE;
 }
 
+int	create_trgb(int t, t_color color)
+{
+	return (t << 24 | color._r << 16 | color._g << 8 | color._b);
+}
+
 void	begin_cub(t_cub *cub)
 {
 	get_win_size(cub);
 	set_angle(cub);
+	cub->color_cell = create_trgb(0, cub->celling);
+	cub->color_floor = create_trgb(0, cub->floor);
 	cub->player->pos.x *= BLOCK_SIZE;
 	cub->player->pos.y *= BLOCK_SIZE;
 	cub->mlx = mlx_init();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 12:40:49 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/04 21:34:14 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef struct s_cub
 	char			**map;
 	t_color			floor;
 	t_color			celling;
+	int				color_cell;
+	int				color_floor;
 	t_player		*player;
 	int				win_width;
 	int				win_height;
@@ -141,6 +143,8 @@ typedef struct s_cub
 	void			*img;
 	void			*player_img;
 	void			*line;
+	int				distance_proj_plane;
+	int				wall_strip_height;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -228,6 +232,7 @@ void		render(t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
 void		put_pixel(int color, t_cub *cub);
 void		cast_all_rays(t_cub *cub, int x, int y);;
+int			ft_atoi_base(char *str, char *base);
+double		normalize_angle(double angle);
 
-double normalize_angle(double angle);
 #endif
