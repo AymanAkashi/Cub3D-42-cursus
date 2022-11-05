@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 21:34:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/05 11:04:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 12
-# define COLOM_WIN 50
-# define ROW_WIN 20
+# define BLOCK_SIZE 64
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 # define RADIUS_MAP 80

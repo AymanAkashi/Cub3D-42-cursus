@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 17:09:36 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/05 11:03:03 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void cast_ray(t_cub *cub, double ray_angle)
 	pos_wall = finding_distance(cub->player->pos, h_intersection, v_intersection);
 	cub->rays->wall_hit_x = pos_wall.x;
 	cub->rays->wall_hit_y = pos_wall.y;
+	cub->rays->distance = sqrt((cub->player->pos.x - pos_wall.x) * (cub->player->pos.x - pos_wall.x) + (cub->player->pos.y - pos_wall.y) * (cub->player->pos.y - pos_wall.y));
 }
 
 void	cast_all_rays(t_cub *cub, int x, int y)
@@ -168,10 +169,14 @@ void	cast_all_rays(t_cub *cub, int x, int y)
 	column_id = 0;
 	cub->player->rot_angle = normalize_angle(cub->player->rot_angle);
 	ray_angle = normalize_angle(cub->player->rot_angle - (FOV_ANGLE / 2));
+	cub->distance_proj_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (i < NUM_RAYS)
 	{
 		cast_ray(cub, ray_angle);
-		// dda(cub, (t_pos){x, y}, (t_pos){cub->rays->wall_hit_x, cub->rays->wall_hit_y}, 0x00FF0000);
+		cub->rays->distance = cub->rays->distance * cos(ray_angle - cub->player->rot_angle);
+		cub->wall_strip_height = (BLOCK_SIZE / cub->rays->distance) * cub->distance_proj_plane;
+		dda(cub, (t_pos){i, WIN_HEIGHT/2}, (t_pos){i, WIN_HEIGHT/2 - cub->wall_strip_height/2}, 0x00FF0000);
+		dda(cub, (t_pos){i, WIN_HEIGHT/2}, (t_pos){i, WIN_HEIGHT/2 + cub->wall_strip_height/2}, 0x00FF0000);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		column_id++;
 		i++;
@@ -228,6 +233,7 @@ void	render(t_cub *cub)
 	update_player(cub->player, cub);
 	draw_celling(cub);
 	draw_floor(cub);
+	cast_all_rays(cub, x, y);
 	draw_circle(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00000000);
 	mlx_clear_window(cub->mlx, cub->win);
 }

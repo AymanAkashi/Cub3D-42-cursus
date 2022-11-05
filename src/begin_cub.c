@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 17:36:51 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/05 07:40:48 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_bool	check_circle(int x, int y, int radius, t_cub *cub)
 	int	tile_x;
 	int	tile_y;
 
-	radius = radius * 2 / 3;
 	new_x = x - radius;
 	new_y = y - radius;
 	tile_x = floor(new_x / BLOCK_SIZE);

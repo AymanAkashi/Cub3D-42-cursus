@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 12:55:21 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/05 11:05:14 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 	draw_circle_player(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00A5C9CA);
 	dda(cub, (t_pos){x, y}, (t_pos){RADIUS_MAP + cos(cub->player->rot_angle)* 20,
 		WIN_HEIGHT - RADIUS_MAP + sin(cub->player->rot_angle) * 20}, 0x000F3D3E);
-	cast_all_rays(cub, x, y);
 }
 
 void	dda(t_cub *cub, t_pos p0, t_pos p1, int color)
