@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/05 11:04:36 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:42:20 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 64
+# define BLOCK_SIZE 16
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 # define RADIUS_MAP 80
 # define FOV 60
 # define FOV_ANGLE (FOV * (M_PI / 180))
 # define NUM_RAYS (WIN_WIDTH)
+
+# define MAX_INT 2147483647
 
 // state enum
 typedef enum e_state
@@ -106,9 +108,9 @@ typedef struct s_player
 	t_pos		pos;
 	t_pos		last_pos;
 	int			length;
-	int			turn_dir; // 1 for right -1 for left
-	int			walk_dir; // 1 for forward -1 for backward
-	int			walk_side; // 1 for right -1 for left
+	int			turn_dir;
+	int			walk_dir;
+	int			walk_side;
 	int			radius;
 	double		rot_angle;
 	double		move_speed;

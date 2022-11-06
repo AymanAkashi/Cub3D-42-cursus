@@ -6,7 +6,7 @@
 /*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 22:40:32 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/05 07:31:36 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/06 21:50:47 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_player(t_cub	*cub)
 	cub->player->pos.x = -1;
 	cub->player->pos.y = -1;
 	cub->player->length = 10;
-	cub->player->move_speed = 5;
+	cub->player->move_speed = 2.5;
 	cub->player->rot_speed = 2 * (M_PI / 180);
 	cub->player->turn_dir = 0;
 	cub->player->walk_dir = 0;
