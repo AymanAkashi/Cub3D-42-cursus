@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 16:23:47 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:42:09 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,14 +185,12 @@ void	rect(t_pos start, t_pos end, t_cub *cub, int color)
 	}
 }
 
-void	cast_all_rays(t_cub *cub, int x, int y)
+void	cast_all_rays(t_cub *cub)
 {
 	int		i;
 	int		column_id;
 	double	ray_angle;
 
-	(void)x;
-	(void)y;
 	i = 0;
 	column_id = 0;
 	cub->player->rot_angle = normalize_angle(cub->player->rot_angle);
@@ -208,7 +206,9 @@ void	cast_all_rays(t_cub *cub, int x, int y)
 			color = 0x00041f47;
 		else
 			color = 0x00062759;
-		rect((t_pos){i, (WIN_HEIGHT / 2) - (cub->wall_strip_height / 2)}, (t_pos){i, (WIN_HEIGHT / 2) + (cub->wall_strip_height / 2)}, cub, color);
+		rect((t_pos){i, (WIN_HEIGHT / 2) - (cub->wall_strip_height / 2)},
+			(t_pos){i, (WIN_HEIGHT / 2) + (cub->wall_strip_height / 2)},
+			cub, color);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		column_id++;
 		i++;
@@ -255,11 +255,6 @@ void	draw_floor(t_cub *cub)
 	}
 }
 
-int	create_trgb(int t, t_color color)
-{
-	return (t << 24 | color._r << 16 | color._g << 8 | color._b);
-}
-
 void	render(t_cub *cub)
 {
 	int	x;
@@ -270,7 +265,7 @@ void	render(t_cub *cub)
 	update_player(cub->player, cub);
 	draw_celling(cub);
 	draw_floor(cub);
-	cast_all_rays(cub, x, y);
+	cast_all_rays(cub);
 	draw_circle(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00000000);
 	mlx_clear_window(cub->mlx, cub->win);
 }

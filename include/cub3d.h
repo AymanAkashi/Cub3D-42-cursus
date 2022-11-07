@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 16:18:22 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:41:37 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ int			loop(void *param);
 void		render(t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
 void		put_pixel(int color, t_cub *cub);
-void		cast_all_rays(t_cub *cub, int x, int y);;
+void		cast_all_rays(t_cub *cub);
 int			ft_atoi_base(char *str, char *base);
 double		normalize_angle(double angle);
 
