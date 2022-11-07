@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/06 21:55:39 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:23:47 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_pos	check_horizontal(t_cub *cub, double ray_angle)
 	return ((t_pos){next_hor_x, next_hor_y});
 }
 
-t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p)
+t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub)
 {
 	double	h_dist;
 	double	v_dist;
@@ -140,13 +140,19 @@ t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p)
 	h_dist = sqrt((p.x - h_p.x) * (p.x - h_p.x) + (p.y - h_p.y) * (p.y - h_p.y));
 	v_dist = sqrt((p.x - v_p.x) * (p.x - v_p.x) + (p.y - v_p.y) * (p.y - v_p.y));
 	if (h_dist - v_dist <= ebsilon)
+	{
+		cub->rays->was_hit_vertical = _false;
 		return (h_p);
+	}
 	else
+	{
+		cub->rays->was_hit_vertical = _true;
 		return (v_p);
+	}
 }
 
 double normalize_angle(double angle)
-{\
+{
 	angle = remainder(angle, (2 * M_PI));
 	if (angle < 0)
 		angle = angle + (2 * M_PI);
@@ -161,7 +167,7 @@ void cast_ray(t_cub *cub, double ray_angle)
 
 	h_intersection = check_horizontal(cub, ray_angle);
 	v_intersection = check_vertical(cub, ray_angle);
-	pos_wall = finding_distance(cub->player->pos, h_intersection, v_intersection);
+	pos_wall = finding_distance(cub->player->pos, h_intersection, v_intersection, cub);
 	cub->rays->distance = sqrt((cub->player->pos.x - pos_wall.x) * (cub->player->pos.x - pos_wall.x) + (cub->player->pos.y - pos_wall.y) * (cub->player->pos.y - pos_wall.y));
 }
 
@@ -194,10 +200,15 @@ void	cast_all_rays(t_cub *cub, int x, int y)
 	cub->distance_proj_plane = (WIN_WIDTH / 2) / tan(FOV_ANGLE / 2);
 	while (i < NUM_RAYS)
 	{
+		int color;
 		cast_ray(cub, ray_angle);
 		cub->rays->distance = cub->rays->distance * cos(ray_angle - cub->player->rot_angle);
 		cub->wall_strip_height = (BLOCK_SIZE / cub->rays->distance) * cub->distance_proj_plane;
-		rect((t_pos){i, (WIN_HEIGHT / 2) - (cub->wall_strip_height / 2)}, (t_pos){i, (WIN_HEIGHT / 2) + (cub->wall_strip_height / 2)}, cub, 0x00062759);
+		if (cub->rays->was_hit_vertical)
+			color = 0x00041f47;
+		else
+			color = 0x00062759;
+		rect((t_pos){i, (WIN_HEIGHT / 2) - (cub->wall_strip_height / 2)}, (t_pos){i, (WIN_HEIGHT / 2) + (cub->wall_strip_height / 2)}, cub, color);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		column_id++;
 		i++;
@@ -242,6 +253,11 @@ void	draw_floor(t_cub *cub)
 		}
 		i++;
 	}
+}
+
+int	create_trgb(int t, t_color color)
+{
+	return (t << 24 | color._r << 16 | color._g << 8 | color._b);
 }
 
 void	render(t_cub *cub)
