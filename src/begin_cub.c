@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/06 21:50:24 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:41:12 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,19 @@ void	begin_cub(t_cub *cub)
 	set_angle(cub);
 	cub->color_cell = create_trgb(0, cub->celling);
 	cub->color_floor = create_trgb(0, cub->floor);
-	cub->player->pos.x *= BLOCK_SIZE;
-	cub->player->pos.y *= BLOCK_SIZE;
+	cub->player->pos.x = cub->player->pos.x * BLOCK_SIZE + BLOCK_SIZE / 2;
+	cub->player->pos.y = cub->player->pos.y * BLOCK_SIZE + BLOCK_SIZE / 2;
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	cub->img = mlx_new_image(cub->mlx, WIN_WIDTH, WIN_HEIGHT);
 	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
 			&cub->size_line, &cub->endian);
+	set_hide_mouse(KEY_Q,cub);
 	mlx_hook(cub->win, 17, 0, end_game, cub);
 	mlx_hook(cub->win, 02, 1L << 0, input, cub);
 	mlx_hook(cub->win, 03, 1L << 1, input_release, cub);
+	mlx_hook(cub->win, 06, 1L << 6, mouse_hook, cub);
+	mlx_hook(cub->win, 5, 0, mouse_release, cub);
 	mlx_loop_hook(cub->mlx, loop, cub);
 	mlx_loop(cub->mlx);
 }
