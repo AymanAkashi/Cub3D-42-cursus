@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/25 22:10:50 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/11/07 13:10:37 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 LIB_DIR			:= lib
 LIBFT_DIR		:= $(LIB_DIR)/libft
+MLX_DIR			:= $(LIB_DIR)/MLX
 
 # *********************************** Files ************************************
 NAME			:= cub3d
@@ -51,6 +52,7 @@ SRC				:= main.c \
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
+MLX 			:= libmlx.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
 
@@ -68,15 +70,16 @@ MKDIR			:= mkdir -p
 OBJ_DEP			:= $(addprefix $(OBJ_DIR)/, $(OBJ))
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
+MLX_DEP			:= $(MLX_DIR)/$(MLX)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
 LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
 
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP)
+$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP) $(MLX_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DEP) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFLAGS) $(MLX_DEP) $(OBJ_DEP) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DEP)
 	@$(MKDIR) $(OBJ_DIR)
@@ -87,11 +90,15 @@ $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
 	@make -C $(LIBFT_DIR)
 
+$(MLX_DEP):
+	@echo "$(BLUE)Building	$(CYAN)$(MLX)$(NC)"
+	@make -C $(MLX_DIR) 2> /dev/null
 clean:
 	@echo "$(RED)Removing$(BLUE)	$(LIBFT)  Object files$(NC)"
 	@make clean -C $(LIBFT_DIR)
 	@echo "$(RED)Removing	$(YELLOW)Object files$(NC)"
 	@$(RM) $(OBJ_DIR)
+	@ make clean -C $(MLX_DIR)
 
 fclean: clean
 	@echo "$(RED)Removing	$(BLUE)$(LIBFT)$(NC)"

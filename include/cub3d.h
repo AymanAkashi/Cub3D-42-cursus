@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/06 21:42:20 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:18:22 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "input.h"
-# include <mlx.h>
+# include <../lib/MLX/mlx.h>
 # include "../lib/libft/include/libft.h"
 # include "get_next_line.h"
 # include <unistd.h>
@@ -45,6 +45,12 @@ typedef enum e_state
 	facing_right
 }	t_state;
 
+typedef enum e_bool
+{
+	_false,
+	_true
+}	t_bool;
+
 // rays data
 typedef struct s_rays
 {
@@ -52,6 +58,7 @@ typedef struct s_rays
 	double	wall_hit_x;
 	double	wall_hit_y;
 	double	distance;
+	t_bool 	was_hit_vertical;
 	t_state	state;
 }				t_rays;
 
@@ -145,15 +152,10 @@ typedef struct s_cub
 	void			*line;
 	int				distance_proj_plane;
 	int				wall_strip_height;
+	t_bool			mouse_hide;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
-// Boolean struct
-typedef enum e_bool
-{
-	_false,
-	_true
-}	t_bool;
 
 // Init data
 void		init_data(t_cub *cub);
@@ -223,6 +225,9 @@ void		draw_circle(t_cub *cub, int x, int y, int color);
 void		dda(t_cub *cub, t_pos p0, t_pos p1, int color);
 
 // Hook functions
+int			mouse_hook(int x, int y, void *param);
+int			mouse_release(void	*param);
+void		set_hide_mouse(int key, t_cub *cub);
 int			end_game(t_cub *cub);
 void		move_key(int key, t_cub *cub);
 int			input_release(int key, t_cub *cub);
