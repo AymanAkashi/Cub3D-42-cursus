@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 16:42:09 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:30:04 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_state	checking_state(double ray_angle, int check)
 {
 	if (check == 1)
 	{
-	if (ray_angle < 2 * M_PI && ray_angle > M_PI)
-		return (facing_up);
-	else
-		return (facing_down);
+		if (ray_angle < 2 * M_PI && ray_angle > M_PI)
+			return (facing_up);
+		else
+			return (facing_down);
 	}
 	else
 	{
@@ -69,8 +69,8 @@ t_pos	check_vertical(t_cub *cub, double ray_angle)
 		y_step *= -1;
 	double next_vert_x = x_intercept;
 	double next_vert_y = y_intercept;
-	while(next_vert_x >= 0 && next_vert_x <= WIN_WIDTH
-		&& next_vert_y >= 0 && next_vert_y <= WIN_HEIGHT)
+	while(next_vert_x >= 0 && next_vert_x <= cub->win_width
+		&& next_vert_y >= 0 && next_vert_y <= cub->win_height)
 	{
 		double x_to_check = next_vert_x;
 		if (cub->rays->state == facing_left)
@@ -112,8 +112,8 @@ t_pos	check_horizontal(t_cub *cub, double ray_angle)
 		x_step *= -1;
 	double next_hor_x = x_intercept;
 	double next_hor_y = y_intercept;
-	while (next_hor_x >= 0 && next_hor_x <= WIN_WIDTH
-		&& next_hor_y >= 0 && next_hor_y <= WIN_HEIGHT)
+	while (next_hor_x >= 0 && next_hor_x <= cub->win_width
+		&& next_hor_y >= 0 && next_hor_y <= cub->win_height)
 	{
 		double x_to_check = next_hor_x;
 		double y_to_check = next_hor_y;
@@ -185,6 +185,31 @@ void	rect(t_pos start, t_pos end, t_cub *cub, int color)
 	}
 }
 
+void	set_color(t_cub *cub, int *color)
+{
+	t_state state1;
+	t_state state2;
+
+	state1 = checking_state(cub->rays->ray_angle, 1);
+	state2 = checking_state(cub->rays->ray_angle, 2);
+	if (!cub->rays->was_hit_vertical && state1 == facing_up && state2 == facing_left)//north
+		*color = 0x5c8d98;
+	else if (!cub->rays->was_hit_vertical && state1 == facing_up && state2 == facing_right)//north
+		*color = 0x5c8d98;
+	else if (cub->rays->was_hit_vertical && state1 == facing_up && state2 == facing_right)//west
+		*color = 0x9acfcb;
+	else if (cub->rays->was_hit_vertical && state1 == facing_down && state2 == facing_right) // WEst
+		*color = 0x9acfcb;
+	else if (!cub->rays->was_hit_vertical && state1 == facing_down && state2 == facing_right)//south
+		*color = 0x32444c;
+	else if (!cub->rays->was_hit_vertical && state1 == facing_down && state2 == facing_left)//south
+		*color = 0x32444c;
+	else if (cub->rays->was_hit_vertical && state1 == facing_down && state2 == facing_left)//east
+		*color = 0x82c5c4;
+	else if (cub->rays->was_hit_vertical && state1 == facing_up && state2 == facing_left)//east
+		*color = 0x82c5c4;
+}
+
 void	cast_all_rays(t_cub *cub)
 {
 	int		i;
@@ -202,10 +227,8 @@ void	cast_all_rays(t_cub *cub)
 		cast_ray(cub, ray_angle);
 		cub->rays->distance = cub->rays->distance * cos(ray_angle - cub->player->rot_angle);
 		cub->wall_strip_height = (BLOCK_SIZE / cub->rays->distance) * cub->distance_proj_plane;
-		if (cub->rays->was_hit_vertical)
-			color = 0x00041f47;
-		else
-			color = 0x00062759;
+		cub->rays->ray_angle = ray_angle;
+		set_color(cub, &color);
 		rect((t_pos){i, (WIN_HEIGHT / 2) - (cub->wall_strip_height / 2)},
 			(t_pos){i, (WIN_HEIGHT / 2) + (cub->wall_strip_height / 2)},
 			cub, color);
