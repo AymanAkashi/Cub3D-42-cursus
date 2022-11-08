@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:43:27 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/18 13:01:35 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/07 23:17:39 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,18 @@ t_type	check_type(char *str)
 
 char	*get_path(char *str)
 {
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (!str[i] || str[i] == '\n')
 		return ("");
-	return (ft_strdup(str + i));
+	j = i;
+	while(str[j] && str[j] != ' ' && str[j] != '\n')
+		j++;
+	return (ft_substr(str, i, j - i));
 }
 
 int	check_format(char *file)
