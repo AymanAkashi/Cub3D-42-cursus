@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 10:08:39 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 16:03:01 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:38:35 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	move_key(int key, t_cub *cub)
 		cub->player->turn_dir = -1;
 	if (key == KEY_RIGHT)
 		cub->player->turn_dir = 1;
+	if (key == KEY_PLUS && cub->player->move_speed < 7)
+		cub->player->move_speed += 0.5;
+	if (key == KEY_MINUS && cub->player->move_speed > 1)
+		cub->player->move_speed -= 0.5;
 }
 
 int	input_release(int key, t_cub *cub)
@@ -55,7 +59,7 @@ int	input_release(int key, t_cub *cub)
 	return (1);
 }
 
-int	mouse_hook(int x, int y, void *param)
+int	mouse_move(int x, int y, void *param)
 {
 	t_cub *cub;
 	int x_center;
@@ -93,8 +97,6 @@ int	input(int key, t_cub *cub)
 	if (key == KEY_ESCAPE)
 		end_game(cub);
 	else
-	{
 		move_key(key, cub);
-	}
 	return (1);
 }

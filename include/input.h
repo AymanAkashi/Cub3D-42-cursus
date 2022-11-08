@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:09:30 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/24 21:16:59 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:41:45 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef enum keys
 	KEY_RIGHT_BRACKET	= 93,
 	KEY_GRAVE_ACCENT	= 96,
 	KEY_ESCAPE			= 53,
+	KEY_PLUS			= 69,
+	KEY_MINUS			= 78,
 }	keys_t;
 
 #endif

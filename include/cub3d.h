@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 16:41:37 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:17:31 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 16
+# define BLOCK_SIZE 32
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 # define RADIUS_MAP 80
@@ -89,6 +89,9 @@ typedef struct s_compass
 {
 	t_type				type;
 	char				*path;
+	void				*img;
+	int					width;
+	int					height;
 	struct s_compass	*next;
 	struct s_compass	*prev;
 }	t_compass;
@@ -123,6 +126,23 @@ typedef struct s_player
 	double		move_speed;
 	double		rot_speed;
 }	t_player;
+
+// Struct for image
+typedef struct s_img
+{
+	
+}	t_img;
+// struct for textures
+typedef struct s_texture
+{
+	void			**img;
+	unsigned int	*addr;
+	int				bpp;
+	int				line_length;
+	int				endian;
+	double texteur_offset_x;
+	double texteur_offset_y;
+}	t_texture;
 
 // main struct data
 typedef struct s_cub
@@ -225,7 +245,7 @@ void		draw_circle(t_cub *cub, int x, int y, int color);
 void		dda(t_cub *cub, t_pos p0, t_pos p1, int color);
 
 // Hook functions
-int			mouse_hook(int x, int y, void *param);
+int			mouse_move(int x, int y, void *param);
 int			mouse_release(void	*param);
 void		set_hide_mouse(int key, t_cub *cub);
 int			end_game(t_cub *cub);

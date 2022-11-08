@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:43 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/04 12:51:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:35:45 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	end_game(t_cub *cub)
 	mlx_clear_window(cub->mlx, cub->win);
 	mlx_destroy_window(cub->mlx, cub->win);
 	free_data(cub);
+	yellow();printf("See you Later :) \n");reset();
 	exit(EXIT_SUCCESS);
 }
 
