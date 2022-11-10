@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/11/10 07:36:39 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/11/10 19:58:04 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,11 @@ SRC				:= main.c \
 					player_draw.c \
 					list_door.c \
 					handling_doors.c \
-					rays_casting.c 
+					rays_casting.c \
+					mouse_hook.c \
+					player_check.c \
+					open_image.c \
+					color_rgb.c 
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a

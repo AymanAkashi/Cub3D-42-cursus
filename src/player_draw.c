@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 11:09:19 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:50:04 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 {
 	int	j;
-	int nx;
+	int	nx;
 	int	ny;
 
 	j = 0;
@@ -92,7 +92,6 @@ void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 	}
 }
 
-
 void	draw_circle_player(t_cub *cub, int x, int y, int color)
 {
 	float	i;
@@ -127,8 +126,8 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 	while (i < 360)
 	{
 		angle = i;
-		x1 = RADIUS_MAP * cos(angle * M_PI / 180);
-		y1 = RADIUS_MAP * sin(angle * M_PI / 180);
+		x1 = RADIUS_M * cos(angle * M_PI / 180);
+		y1 = RADIUS_M * sin(angle * M_PI / 180);
 		cub->x = x + x1;
 		cub->y = y + y1;
 		put_pixel(color, cub);
@@ -140,9 +139,9 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 				(t_pos){x1, y1}, cub, (t_pos){-1, color});
 		i += 0.1;
 	}
-	draw_circle_player(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00A5C9CA);
-	dda(cub, (t_pos){x, y}, (t_pos){RADIUS_MAP + cos(cub->player->rot_angle)* 20,
-		WIN_HEIGHT - RADIUS_MAP + sin(cub->player->rot_angle) * 20}, 0x000F3D3E);
+	draw_circle_player(cub, RADIUS_M, WIN_HEIGHT - RADIUS_M, 0x00A5C9CA);
+	dda(cub, (t_pos){x, y}, (t_pos){RADIUS_M + cos(cub->player->rot_angle) * 15,
+		WIN_HEIGHT - RADIUS_M + sin(cub->player->rot_angle) * 15}, 0x000F3D3E);
 }
 
 void	dda(t_cub *cub, t_pos p0, t_pos p1, int color)

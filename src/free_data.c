@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 19:03:34 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/20 09:36:32 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 19:02:03 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	free_data(t_cub *cub)
 	if (cub->compass)
 		ft_d_lstclear(&cub->compass);
 	free(cub->player);
+	free(cub->tab);
 }

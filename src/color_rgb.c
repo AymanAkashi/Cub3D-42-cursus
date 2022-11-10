@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handling_doors.c                                   :+:      :+:    :+:   */
+/*   color_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 03:59:31 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:51:31 by aaggoujj         ###   ########.fr       */
+/*   Created: 2022/11/10 19:54:16 by aaggoujj          #+#    #+#             */
+/*   Updated: 2022/11/10 19:54:56 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	set_door(t_cub *cub)
+void	put_pixel(int color, t_cub *cub)
 {
-	t_door	*tmp;
-	int		i;
-	int		j;
-	int		index;
+	if (cub->y < WIN_HEIGHT && cub->x < WIN_WIDTH && cub->y >= 0 && cub->x >= 0)
+	cub->addr[(int)cub->y * WIN_WIDTH + (int)cub->x] = color;
+}
 
-	i = 0;
-	index = 0;
-	while (cub->map[i])
-	{
-		j = 0;
-		while (cub->map[i][j])
-		{
-			if (cub->map[i][j] == 'D')
-			{
-				tmp = ft_door_new(index++, j, i);
-				ft_door_add_back(&cub->door, tmp);
-			}
-			j++;
-		}
-		i++;
-	}
+int	create_trgb(int t, t_color color)
+{
+	return (t << 24 | color._r << 16 | color._g << 8 | color._b);
 }

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/08 22:26:18 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:56:40 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_bool	is_not_zero(char c)
 {
-	if (c != '1' && c != 'N' && c != 'S' && c != 'W' && c != 'E' && c != '0' && c != 'D' && c != 'O')
+	if (c != '1' && c != 'N' && c != 'S'
+		&& c != 'W' && c != 'E' && c != '0' && c != 'D')
 		return (_false);
 	return (_true);
 }
@@ -52,6 +53,13 @@ t_bool	player_posistion(char c)
 	return (_false);
 }
 
+void	set_position_player(t_cub *cub, int i, int j, char c)
+{
+	cub->player->pos.x = j;
+	cub->player->pos.y = i;
+	cub->player->direction = c;
+}
+
 void	check_map(char **map, t_cub *cub)
 {
 	int	i;
@@ -66,14 +74,11 @@ void	check_map(char **map, t_cub *cub)
 			if (check_char(map[i]) == _false)
 				error_map(0, cub);
 			if (player_posistion(map[i][j]) && cub->player->pos.x == -1)
-			{
-					cub->player->pos.x = j;
-					cub->player->pos.y = i;
-					cub->player->direction = map[i][j];
-			}
+				set_position_player(cub, i, j, map[i][j]);
 			else if (player_posistion(map[i][j]) && cub->player->pos.x != -1)
 				error_map(0, cub);
-			if (map[i][j] == '0' || player_posistion(map[i][j]))
+			if (map[i][j] == '0' || player_posistion(map[i][j])
+				|| map[i][j] == 'D')
 				checking_valid_map(map, i, j, cub);
 		}
 	}

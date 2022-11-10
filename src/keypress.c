@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 10:08:39 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 16:01:19 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 19:02:37 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	set_hide_mouse(int key, t_cub *cub)
 	}
 }
 
-t_door *get_door(t_door *door, int x, int y)
+t_door	*get_door(t_door *door, int x, int y)
 {
-	t_door *tmp;
+	t_door	*tmp;
 
 	tmp = door;
 	while (tmp)
@@ -40,18 +40,48 @@ t_door *get_door(t_door *door, int x, int y)
 	return (NULL);
 }
 
+void	open_door(t_cub *cub)
+{
+	t_door	*tmp;
+	int		px;
+	int		py;
+
+	tmp = cub->door;
+	if (cub->open == 0)
+	{
+		px = floor(cub->player->pos.x / BLOCK_SIZE);
+		py = floor(cub->player->pos.y / BLOCK_SIZE);
+		while (tmp)
+		{
+			if ((tmp->x == px && tmp->y == py + 2) || (tmp->x == px + 2 && tmp->y == py) || (tmp->x == px - 2 && tmp->y == py) || (tmp->x == px && tmp->y == py - 2)
+				|| (tmp->x == px && tmp->y == py + 1) || (tmp->x == px + 1 && tmp->y == py) || (tmp->x == px - 1 && tmp->y == py) || (tmp->x == px && tmp->y == py - 1))
+				cub->map[tmp->y][tmp->x] = 'O';
+			tmp = tmp->next;
+		}
+		cub->open = 1;
+	}
+	else
+	{
+		while (tmp)
+		{
+			cub->map[tmp->y][tmp->x] = 'D';
+			tmp = tmp->next;
+		}
+		cub->open = 0;
+	}
+}
+
 t_bool	check_player(t_cub *cub)
 {
-	int	px;
-	int	py;
-	t_door *tmp;
+	int		px;
+	int		py;
+	t_door	*tmp;
 
 	tmp = cub->door;
 	px = floor(cub->player->pos.x / BLOCK_SIZE);
 	py = floor(cub->player->pos.y / BLOCK_SIZE);
 	while (tmp)
 	{
-		
 		if ((tmp->x == px && tmp->y == py))
 			return (_false);
 		tmp = tmp->next;
@@ -76,36 +106,7 @@ void	move_key(int key, t_cub *cub)
 		cub->player->turn_dir = 1;
 	if (key == KEY_SPACE && check_player(cub))
 	{
-		if (cub->open == 0)
-		{
-			int px;
-			int py;
-
-			int	DD;
-		
-			DD = 2;
-			px = floor(cub->player->pos.x / BLOCK_SIZE);
-			py = floor(cub->player->pos.y / BLOCK_SIZE);
-			t_door *tmp = cub->door;
-			while (tmp)
-			{
-				if ((tmp->x == px && tmp->y == py + DD) || (tmp->x == px + DD && tmp->y == py) || (tmp->x == px - DD && tmp->y == py) || (tmp->x == px && tmp->y == py - DD)
-					|| (tmp->x == px && tmp->y == py + 1) || (tmp->x == px + 1 && tmp->y == py) || (tmp->x == px - 1 && tmp->y == py) || (tmp->x == px && tmp->y == py - 1))
-					cub->map[tmp->y][tmp->x] = 'O';
-				tmp = tmp->next;
-			}
-			cub->open = 1;
-		}
-		else
-		{
-			t_door *tmp = cub->door;
-			while (tmp)
-			{
-				cub->map[tmp->y][tmp->x] = 'D';
-				tmp = tmp->next;
-			}
-			cub->open = 0;
-		} 
+		open_door(cub);
 	}
 }
 

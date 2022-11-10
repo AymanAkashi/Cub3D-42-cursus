@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 16:45:53 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 19:57:22 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define BLOCK_SIZE 32
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
-# define RADIUS_MAP 80
+# define RADIUS_M 80
 # define FOV 60
 # define FOV_ANGLE (FOV * (M_PI / 180))
 # define NUM_RAYS (WIN_WIDTH)
@@ -90,6 +90,20 @@ typedef struct s_rays
 	int		y_door;
 	t_state	state;
 }				t_rays;
+
+typedef struct s_hit_pos
+{
+	float	x_intercept;
+	float	y_intercept;
+	float	x_step;
+	float	y_step;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	float	next_x;
+	float	next_y;
+	float	x_to_check;
+	float	y_to_check;
+}	t_hit_pos;
 
 // DDA variables
 typedef struct s_DDA{
@@ -291,6 +305,7 @@ void		ft_door_add_back(t_door **lst, t_door *new);
 t_door		*ft_door_new(int index, int x, int y);
 void		search_door(t_door *lst, int x, int y, float distance);
 void		checking_door(t_cub *cub);
+t_door		*get_door(t_door *door, int x, int y);
 
 t_pos		check_vertical(t_cub *cub, float ray_angle);
 t_pos		check_horizontal(t_cub *cub, float ray_angle);
@@ -298,5 +313,20 @@ t_pos		finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub);
 float		normalize_angle(float angle);
 t_state		checking_state(float ray_angle, int check);
 t_bool		check_wall(int x, int y, t_cub *cub);
+
+int			mouse_click(int button, int x, int y, t_cub *cub);
+int			mouse_start(int button, int x, int y, t_cub *cub);
+int			mouse_init(t_cub *cub);
+void		hook_start(t_cub *cub);
+t_bool		check_circle_next(int x, int y, int radius, t_cub *cub);
+t_bool		check_circle(int x, int y, int radius, t_cub *cub);
+t_bool		is_wall(int x, int y, t_cub *cub);
+void		open_image(t_cub *cub, t_compass *tmp);
+void		open_image_door(t_cub *cub);
+
+void		set_door(t_cub *cub);
+
+int			create_trgb(int t, t_color color);
+void		put_pixel(int color, t_cub *cub);
 
 #endif

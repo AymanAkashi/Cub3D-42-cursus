@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 16:21:00 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:47:42 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,6 @@ void	render(t_cub *cub)
 	draw_celling(cub);
 	draw_floor(cub);
 	cast_all_rays(cub);
-	draw_circle(cub, RADIUS_MAP, WIN_HEIGHT - RADIUS_MAP, 0x00000000);
+	draw_circle(cub, RADIUS_M, WIN_HEIGHT - RADIUS_M, 0x00000000);
 	mlx_clear_window(cub->mlx, cub->win);
 }

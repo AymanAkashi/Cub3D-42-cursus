@@ -6,106 +6,109 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:35:08 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 15:03:42 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:44:43 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_pos	check_vertical(t_cub *cub, float ray_angle)
+void	check_vertical_next(t_hit_pos *hit, t_cub *cub, float ray_angle)
 {
-	float	x_intercept;
-	float	y_intercept;
-	float	x_step;
-	float	y_step;
-	float  vertical_wall_hit_x;
-	float  vertical_wall_hit_y;
-
-	if (ray_angle == M_PI / 2 || ray_angle == 3 * M_PI / 2)
-		return ((t_pos){MAX_INT, MAX_INT});
-	x_intercept = floor(cub->player->pos.x / BLOCK_SIZE) * BLOCK_SIZE;
+	hit->x_intercept = floor(cub->player->pos.x / BLOCK_SIZE) * BLOCK_SIZE;
 	cub->rays->state = checking_state(ray_angle, 2);
 	if (cub->rays->state == facing_right)
-		x_intercept += BLOCK_SIZE;
-	y_intercept = cub->player->pos.y + (x_intercept - cub->player->pos.x) * tan(ray_angle);
-	x_step = BLOCK_SIZE;
+		hit->x_intercept += BLOCK_SIZE;
+	hit->y_intercept = cub->player->pos.y + (hit->x_intercept
+			- cub->player->pos.x) * tan(ray_angle);
+	hit->x_step = BLOCK_SIZE;
 	if (cub->rays->state == facing_left)
-		x_step *= -1;
-	y_step = fabs(BLOCK_SIZE * tan(ray_angle));
+		hit->x_step *= -1;
+	hit->y_step = fabs(BLOCK_SIZE * tan(ray_angle));
 	if (checking_state(ray_angle, 1) == facing_up)
-		y_step *= -1;
-	float next_vert_x = x_intercept;
-	float next_vert_y = y_intercept;
-	while(next_vert_x >= 0 && next_vert_x <= cub->win_width
-		&& next_vert_y >= 0 && next_vert_y <= cub->win_height)
+		hit->y_step *= -1;
+	hit->next_x = hit->x_intercept;
+	hit->next_y = hit->y_intercept;
+}
+
+t_pos	check_vertical(t_cub *cub, float ray_angle)
+{
+	t_hit_pos	hit;
+
+	if (ray_angle == M_PI_2 || ray_angle == 3 * M_PI_2)
+		return ((t_pos){MAX_INT, MAX_INT});
+	check_vertical_next(&hit, cub, ray_angle);
+	while (hit.next_x >= 0 && hit.next_x <= cub->win_width
+		&& hit.next_y >= 0 && hit.next_y <= cub->win_height)
 	{
-		float x_to_check = next_vert_x;
+		hit.x_to_check = hit.next_x;
 		if (cub->rays->state == facing_left)
-			x_to_check = next_vert_x - 1;
-		float y_to_check = next_vert_y;
-		if (!check_wall(x_to_check, y_to_check, cub))
+			hit.x_to_check = hit.next_x - 1;
+		hit.y_to_check = hit.next_y;
+		if (!check_wall(hit.x_to_check, hit.y_to_check, cub))
 		{
-			vertical_wall_hit_x = next_vert_x;
-			vertical_wall_hit_y = next_vert_y;
-			break;
+			hit.wall_hit_x = hit.next_x;
+			hit.wall_hit_y = hit.next_y;
+			break ;
 		}
-		next_vert_x += x_step;
-		next_vert_y += y_step;
+		hit.next_x += hit.x_step;
+		hit.next_y += hit.y_step;
 	}
-	return ((t_pos){next_vert_x, next_vert_y});
+	return ((t_pos){hit.next_x, hit.next_y});
+}
+
+void	check_horizontal_next(t_hit_pos *hit, t_cub *cub, float ray_angle)
+{
+	hit->y_intercept = floor(cub->player->pos.y / BLOCK_SIZE) * BLOCK_SIZE;
+	cub->rays->state = checking_state(ray_angle, 1);
+	if (cub->rays->state == facing_down)
+		hit->y_intercept += BLOCK_SIZE;
+	hit->x_intercept = cub->player->pos.x + (hit->y_intercept
+			- cub->player->pos.y) / tan(ray_angle);
+	hit->y_step = BLOCK_SIZE;
+	if (cub->rays->state == facing_up)
+		hit->y_step *= -1;
+	hit->x_step = fabs(BLOCK_SIZE / tan(ray_angle));
+	if (checking_state(ray_angle, 2) == facing_left)
+		hit->x_step *= -1;
+	hit->next_x = hit->x_intercept;
+	hit->next_y = hit->y_intercept;
 }
 
 t_pos	check_horizontal(t_cub *cub, float ray_angle)
 {
-	float	x_intercept;
-	float	y_intercept;
-	float	x_step;
-	float	y_step;
-	float  horizontal_wall_hit_x;
-	float  horizontal_wall_hit_y;
+	t_hit_pos	hit;
 
 	if (ray_angle == 0 || ray_angle == M_PI)
 		return ((t_pos){MAX_INT, MAX_INT});
-	y_intercept = floor(cub->player->pos.y / BLOCK_SIZE) * BLOCK_SIZE;
-	cub->rays->state = checking_state(ray_angle, 1);
-	if (cub->rays->state == facing_down)
-		y_intercept += BLOCK_SIZE;
-	x_intercept = cub->player->pos.x + (y_intercept - cub->player->pos.y) / tan(ray_angle);
-	y_step = BLOCK_SIZE;
-	if (cub->rays->state == facing_up)
-		y_step *= -1;
-	x_step = fabs(BLOCK_SIZE / tan(ray_angle));
-	if (checking_state(ray_angle, 2) == facing_left)
-		x_step *= -1;
-	float next_hor_x = x_intercept;
-	float next_hor_y = y_intercept;
-	while (next_hor_x >= 0 && next_hor_x <= cub->win_width
-		&& next_hor_y >= 0 && next_hor_y <= cub->win_height)
+	check_horizontal_next(&hit, cub, ray_angle);
+	while (hit.next_x >= 0 && hit.next_x <= cub->win_width
+		&& hit.next_y >= 0 && hit.next_y <= cub->win_height)
 	{
-		float x_to_check = next_hor_x;
-		float y_to_check = next_hor_y;
+		hit.x_to_check = hit.next_x;
+		hit.y_to_check = hit.next_y;
 		if (cub->rays->state == facing_up)
-			y_to_check = next_hor_y - 1;
-		if (!check_wall(x_to_check, y_to_check, cub))
+			hit.y_to_check = hit.next_y - 1;
+		if (!check_wall(hit.x_to_check, hit.y_to_check, cub))
 		{
-			horizontal_wall_hit_x = next_hor_x;
-			horizontal_wall_hit_y = next_hor_y;
+			hit.wall_hit_x = hit.next_x;
+			hit.wall_hit_y = hit.next_y;
 			break ;
 		}
-		next_hor_x += x_step;
-		next_hor_y += y_step;
+		hit.next_x += hit.x_step;
+		hit.next_y += hit.y_step;
 	}
-	return ((t_pos){next_hor_x, next_hor_y});
+	return ((t_pos){hit.next_x, hit.next_y});
 }
 
 t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub)
 {
 	float	h_dist;
 	float	v_dist;
-	float		ebsilon = 0.0001;
+	float	ebsilon;
 
-	h_dist = sqrt((p.x - h_p.x) * (p.x - h_p.x) + (p.y - h_p.y) * (p.y - h_p.y));
-	v_dist = sqrt((p.x - v_p.x) * (p.x - v_p.x) + (p.y - v_p.y) * (p.y - v_p.y));
+	ebsilon = 0.0001;
+	h_dist = sqrt((p.x - h_p.x) *(p.x - h_p.x) + (p.y - h_p.y) * (p.y - h_p.y));
+	v_dist = sqrt((p.x - v_p.x) *(p.x - v_p.x) + (p.y - v_p.y) * (p.y - v_p.y));
 	if (h_dist - v_dist <= ebsilon)
 	{
 		cub->rays->was_hit_vertical = _false;
@@ -113,7 +116,7 @@ t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub)
 	}
 	else
 	{
-		cub->rays->was_hit_vertical = _true;;
+		cub->rays->was_hit_vertical = _true;
 		return (v_p);
 	}
 }
