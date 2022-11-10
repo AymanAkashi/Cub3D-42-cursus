@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/11/07 13:10:37 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/11/10 07:36:39 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,10 @@ SRC				:= main.c \
 					keypress.c \
 					hook.c \
 					render.c \
-					player_draw.c
+					player_draw.c \
+					list_door.c \
+					handling_doors.c \
+					rays_casting.c 
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a

@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/08 13:17:31 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:45:53 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,28 @@
 # include <math.h>
 
 # define BLOCK_SIZE 32
-# define WIN_WIDTH 1080
+# define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 # define RADIUS_MAP 80
 # define FOV 60
 # define FOV_ANGLE (FOV * (M_PI / 180))
 # define NUM_RAYS (WIN_WIDTH)
+# define RADUIS_ANGLE 50
 
 # define MAX_INT 2147483647
+
+// check true or false enum
+typedef enum e_bool
+{
+	_false,
+	_true
+}	t_bool;
+
+typedef struct s_pos
+{
+	float		x;
+	float		y;
+}	t_pos;
 
 // state enum
 typedef enum e_state
@@ -45,32 +59,47 @@ typedef enum e_state
 	facing_right
 }	t_state;
 
-typedef enum e_bool
-{
-	_false,
-	_true
-}	t_bool;
+typedef struct s_door{
+	int			index;
+	int			x;
+	int			y;
+	t_bool		is_open;
+	t_bool		active;
+	struct s_door	*next;
+}	t_door;
+
 
 // rays data
 typedef struct s_rays
 {
-	double	ray_angle;
-	double	wall_hit_x;
-	double	wall_hit_y;
-	double	distance;
+	int		index;
+	float	ray_angle;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	float	distance;
+	t_pos	intersection;
 	t_bool 	was_hit_vertical;
+	int		y_texture;
+	double	x_texture;
+	float	y_offset;
+	float	x_offset;
+	t_bool	was_door;
+	t_bool	was_open;
+	t_bool	door_hit_vertical;
+	int		x_door;
+	int		y_door;
 	t_state	state;
 }				t_rays;
 
 // DDA variables
 typedef struct s_DDA{
-	double	x;
-	double	y;
-	double	dx;
-	double	dy;
-	double	steps;
-	double	xinc;
-	double	yinc;
+	float	x;
+	float	y;
+	float	dx;
+	float	dy;
+	float	steps;
+	float	xinc;
+	float	yinc;
 }				t_DDA;
 
 // enum compass
@@ -84,14 +113,24 @@ typedef enum e_type
 	C
 }			t_type;
 
+// struct for textures
+typedef struct s_texture
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	int				width;
+	int				height;
+}				t_texture;
+
 // Struct for the compass
 typedef struct s_compass
 {
 	t_type				type;
 	char				*path;
-	void				*img;
-	int					width;
-	int					height;
+	t_texture			texture;
 	struct s_compass	*next;
 	struct s_compass	*prev;
 }	t_compass;
@@ -105,12 +144,6 @@ typedef struct s_color
 	int		_b;
 }	t_color;
 
-typedef struct s_pos
-{
-	double		x;
-	double		y;
-}	t_pos;
-
 // Struct for player
 typedef struct s_player
 {
@@ -122,27 +155,11 @@ typedef struct s_player
 	int			walk_dir;
 	int			walk_side;
 	int			radius;
-	double		rot_angle;
-	double		move_speed;
-	double		rot_speed;
+	float		rot_angle;
+	float		move_speed;
+	float		move_speed_side;
+	float		rot_speed;
 }	t_player;
-
-// Struct for image
-typedef struct s_img
-{
-	
-}	t_img;
-// struct for textures
-typedef struct s_texture
-{
-	void			**img;
-	unsigned int	*addr;
-	int				bpp;
-	int				line_length;
-	int				endian;
-	double texteur_offset_x;
-	double texteur_offset_y;
-}	t_texture;
 
 // main struct data
 typedef struct s_cub
@@ -162,17 +179,26 @@ typedef struct s_cub
 	int				size_line;
 	int				endian;
 	int				pixel;
-	double			x;
-	double			y;
+	float			x;
+	float			y;
 	void			*wall;
 	void			*mlx;
 	void			*win;
 	void			*img;
 	void			*player_img;
 	void			*line;
+	t_texture		texture_door;
+	t_texture		texture_open_door;
 	int				distance_proj_plane;
 	int				wall_strip_height;
 	t_bool			mouse_hide;
+	t_bool			on_space;
+	t_bool			on_dis;
+	t_door			*door;
+	int				*tab;
+	int x_door;
+	int y_door;
+	int	open;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -186,6 +212,7 @@ void		blue(void);
 void		yellow(void);
 void		purple(void);
 void		reset(void);
+void		open_image_door(t_cub *cub);
 
 // list compass functions
 t_compass	*ft_d_lstnew(char *content, t_type type);
@@ -258,6 +285,18 @@ t_bool		is_wall(int x, int y, t_cub *cub);
 void		put_pixel(int color, t_cub *cub);
 void		cast_all_rays(t_cub *cub);
 int			ft_atoi_base(char *str, char *base);
-double		normalize_angle(double angle);
+float		normalize_angle(float angle);
+
+void		ft_door_add_back(t_door **lst, t_door *new);
+t_door		*ft_door_new(int index, int x, int y);
+void		search_door(t_door *lst, int x, int y, float distance);
+void		checking_door(t_cub *cub);
+
+t_pos		check_vertical(t_cub *cub, float ray_angle);
+t_pos		check_horizontal(t_cub *cub, float ray_angle);
+t_pos		finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub);
+float		normalize_angle(float angle);
+t_state		checking_state(float ray_angle, int check);
+t_bool		check_wall(int x, int y, t_cub *cub);
 
 #endif

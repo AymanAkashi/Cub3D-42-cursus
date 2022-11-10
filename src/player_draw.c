@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/05 11:05:14 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:09:19 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 			nx = floor((cub->player->pos.x + j) / BLOCK_SIZE);
 			ny = floor((cub->player->pos.y + pos1.y) / BLOCK_SIZE);
 			if (ny < 0 || nx < 0 || ny >= cub->win_height / BLOCK_SIZE
-				|| nx >= cub->win_width / BLOCK_SIZE)
+				|| nx >= cub->win_width / BLOCK_SIZE || cub->tab[ny] <= nx)
 				put_pixel(0x00000000, cub);
 			else if (cub->map[ny][nx] == '1')
 				put_pixel(0x003D0000, cub);
+			else if (cub->map[ny][nx] == 'D')
+				put_pixel(0x00FFFFFF, cub);
 			else if (cub->map[ny][nx] == ' ')
 				put_pixel(0x00000000, cub);
 			else
@@ -75,10 +77,12 @@ void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 			nx = floor((cub->player->pos.x + j) / BLOCK_SIZE);
 			ny = floor((cub->player->pos.y + pos1.y) / BLOCK_SIZE);
 			if (ny < 0 || nx < 0 || ny >= cub->win_height / BLOCK_SIZE
-				|| nx >= cub->win_width / BLOCK_SIZE)
+				|| nx >= cub->win_width / BLOCK_SIZE || cub->tab[ny] <= nx)
 				put_pixel(0x00000000, cub);
 			else if (cub->map[ny][nx] == '1')
 				put_pixel(0x003D0000, cub);
+			else if (cub->map[ny][nx] == 'D')
+				put_pixel(0x00FFFFFF, cub);
 			else if (cub->map[ny][nx] == ' ')
 				put_pixel(0x00000000, cub);
 			else
@@ -91,10 +95,10 @@ void	simple_draw(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 
 void	draw_circle_player(t_cub *cub, int x, int y, int color)
 {
-	double	i;
-	double	angle;
-	double	x1;
-	double	y1;
+	float	i;
+	float	angle;
+	float	x1;
+	float	y1;
 
 	i = 0;
 	while (i < 360)
@@ -114,10 +118,10 @@ void	draw_circle_player(t_cub *cub, int x, int y, int color)
 
 void	draw_circle(t_cub *cub, int x, int y, int color)
 {
-	double	i;
-	double	angle;
-	double	x1;
-	double	y1;
+	float	i;
+	float	angle;
+	float	x1;
+	float	y1;
 
 	i = 0;
 	while (i < 360)
@@ -171,11 +175,11 @@ void	update_player(t_player *player, t_cub *cub)
 {
 	int		move_step;
 	int		move_side;
-	double	new_x;
-	double	new_y;
+	float	new_x;
+	float	new_y;
 
 	player->rot_angle += player->turn_dir * player->rot_speed;
-	move_side = player->walk_side * player->move_speed;
+	move_side = player->walk_side * player->move_speed_side;
 	move_step = player->walk_dir * player->move_speed;
 	if (move_side)
 	{
