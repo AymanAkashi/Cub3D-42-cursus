@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 12:53:22 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:34:55 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	simple_draw_helper(t_cub *cub, int *j, t_pos pos1)
 		|| nx >= cub->win_width / BLOCK_SIZE || cub->tab[ny] <= nx)
 		put_pixel(0x00000000, cub);
 	else if (cub->map[ny][nx] == '1')
-		put_pixel(0x003D0000, cub);
+		put_pixel(0x00003566, cub);
 	else if (cub->map[ny][nx] == 'D')
-		put_pixel(0x00FFFFFF, cub);
+		put_pixel(0x00001d3d, cub);
 	else if (cub->map[ny][nx] == ' ')
 		put_pixel(0x00000000, cub);
 	else
-		put_pixel(0x00950101, cub);
+		put_pixel(0x00ffc300, cub);
 	*j = *j + 1;
 }
 
@@ -71,13 +71,13 @@ void	simple_draw_helper_2(t_cub *cub, int *j, t_pos pos1)
 		|| nx >= cub->win_width / BLOCK_SIZE || cub->tab[ny] <= nx)
 		put_pixel(0x00000000, cub);
 	else if (cub->map[ny][nx] == '1')
-		put_pixel(0x003D0000, cub);
+		put_pixel(0x00003566, cub);
 	else if (cub->map[ny][nx] == 'D')
-		put_pixel(0x00FFFFFF, cub);
+		put_pixel(0x00001d3d, cub);
 	else if (cub->map[ny][nx] == ' ')
 		put_pixel(0x00000000, cub);
 	else
-		put_pixel(0x00950101, cub);
+		put_pixel(0x00ffc300, cub);
 	*j = *j - 1;
 }
 
