@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
+#    By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/11/10 19:58:04 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/11/12 12:33:38 by moseddik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,13 @@ SRC				:= main.c \
 					mouse_hook.c \
 					player_check.c \
 					open_image.c \
-					color_rgb.c 
+					color_rgb.c \
+					mouse_events.c \
+					parsing_map3.c \
+					rays_casting_2.c \
+					draw_cell_floor.c \
+					player_draw_2.c \
+					add_textures.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
