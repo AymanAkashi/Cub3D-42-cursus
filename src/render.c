@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 22:29:50 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:19:09 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,20 @@ t_texture	set_color_helper(t_cub *cub, t_state state1, t_state state2)
 		return (search_color(cub, NO));
 	else if (cub->rays->was_hit_vertical && state1 == facing_up
 		&& state2 == facing_right)
-		return (search_color(cub, WE));
-	else if (cub->rays->was_hit_vertical && state1 == facing_down
-		&& state2 == facing_right)
-		return (search_color(cub, WE));
-	else if (!cub->rays->was_hit_vertical && state1 == facing_down
-		&& state2 == facing_right)
-		return (search_color(cub, SO));
-	else if (!cub->rays->was_hit_vertical && state1 == facing_down
-		&& state2 == facing_left)
-		return (search_color(cub, SO));
-	else if (cub->rays->was_hit_vertical && state1 == facing_down
-		&& state2 == facing_left)
 		return (search_color(cub, EA));
-	return (search_color(cub, EA));
+	else if (cub->rays->was_hit_vertical && state1 == facing_down
+		&& state2 == facing_right)
+		return (search_color(cub, EA));
+	else if (!cub->rays->was_hit_vertical && state1 == facing_down
+		&& state2 == facing_right)
+		return (search_color(cub, SO));
+	else if (!cub->rays->was_hit_vertical && state1 == facing_down
+		&& state2 == facing_left)
+		return (search_color(cub, SO));
+	else if (cub->rays->was_hit_vertical && state1 == facing_down
+		&& state2 == facing_left)
+		return (search_color(cub, WE));
+	return (search_color(cub, WE));
 }
 
 t_texture	set_color(t_cub *cub)
