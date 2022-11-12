@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 13:15:03 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:57:34 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	init_game(t_cub *cub)
 
 	height = WIN_HEIGHT / 2;
 	width = WIN_WIDTH;
-	image = mlx_xpm_file_to_image(cub->mlx, "textures/play2.xpm",
+	image = mlx_xpm_file_to_image(cub->mlx, "textures/start.xpm",
 			&width, &height);
 	if (image == NULL)
 	{
@@ -78,9 +78,8 @@ int	init_game(t_cub *cub)
 		exit(1);
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, image, 0, 0);
+	mlx_hook(cub->win, 17, 0, see_you_later, cub);
 	mlx_hook(cub->win, 02, 0, init_input, cub);
-	if (mlx_mouse_hook(cub->win, mouse_start, cub) == 0)
-		return (1);
 	return (0);
 }
 

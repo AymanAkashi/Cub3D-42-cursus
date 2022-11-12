@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:43 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 13:15:10 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:57:01 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-int	end_game(t_cub *cub)
-{
-	mlx_clear_window(cub->mlx, cub->win);
-	mlx_destroy_window(cub->mlx, cub->win);
-	free_data(cub);
-	(yellow(), printf("See you Later :) \n"), reset());
-	exit(EXIT_SUCCESS);
-}
 
 void	hook_start(t_cub *cub)
 {
@@ -27,10 +18,10 @@ void	hook_start(t_cub *cub)
 	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
 			&cub->size_line, &cub->endian);
 	set_hide_mouse(KEY_Q, cub);
-	mlx_hook(cub->win, 17, 0, end_game, cub);
-	mlx_hook(cub->win, 02, 1L << 0, input, cub);
-	mlx_hook(cub->win, 03, 1L << 1, input_release, cub);
-	mlx_hook(cub->win, 06, 1L << 6, mouse_move, cub);
+	mlx_hook(cub->win, 17, 0, see_you_later, cub);
+	mlx_hook(cub->win, 02, 0, input, cub);
+	mlx_hook(cub->win, 03, 0, input_release, cub);
+	mlx_hook(cub->win, 06, 0, mouse_move, cub);
 	mlx_mouse_hook(cub->win, mouse_click, cub);
 	mlx_loop_hook(cub->mlx, loop, cub);
 }
@@ -38,16 +29,22 @@ void	hook_start(t_cub *cub)
 int	loop(void *param)
 {
 	t_cub	*cub;
-	// int	widht;
-	// int	height;
+	int		width;
+	int		height;
+	void	*img;
 
-	// height = WIN_HEIGHT - 100;
-	// widht = 0;
+	width = 180;
+	height = 180;
 	cub = (t_cub *)param;
 	render(cub);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-	// void	*img;
-	// img = mlx_xpm_file_to_image(cub->mlx, "textures/map.xpm", &widht, &height);
-	// mlx_put_image_to_window(cub->mlx, cub->win, img, 0, WIN_HEIGHT - 100);
+	img = mlx_xpm_file_to_image(cub->mlx, "textures/compass.xpm",
+			&width, &height);
+	if (!img)
+	{
+		(red(), printf("Cube3D: Error file doesn't open\n"), reset());
+		exit(EXIT_FAILURE);
+	}
+	mlx_put_image_to_window(cub->mlx, cub->win, img, 0, WIN_HEIGHT - 180);
 	return (EXIT_SUCCESS);
 }

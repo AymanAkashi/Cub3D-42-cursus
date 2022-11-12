@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 13:14:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:37:34 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,5 +337,6 @@ void		add_textures(t_cub *cub, t_texture texture);
 void		draw_circle_player(t_cub *cub, int x, int y, int color);
 void		simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub,
 				t_pos incr_color);
+int			see_you_later(t_cub *cub);
 
 #endif

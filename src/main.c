@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:20:47 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:49:22 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:46:17 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	main(int ac, char **av)
 	parsing(av[1], cub);
 	begin_cub(cub);
 	free_data(cub);
-	system("leaks cub3d");
 	return (EXIT_SUCCESS);
 }

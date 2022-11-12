@@ -1,7 +1,7 @@
-NO     textures/no1.xpm
-SO     textures/no1.xpm
-WE     textures/no1.xpm
-EA     textures/no1.xpm
+NO     textures/no.xpm
+SO     textures/so.xpm
+WE     textures/we.xpm
+EA     textures/ea.xpm
 
 C  162,172,230
 F  188,236,180
@@ -35,7 +35,7 @@ F  188,236,180
 101        10000000000000001
 101       1000000000000000001
 101111111100000000000000000001
-100000000D0000000000E000000001
+100000000D0000000100E000000001
 111111111100000000000000000001
           1000000000000000001
            10000000000000001

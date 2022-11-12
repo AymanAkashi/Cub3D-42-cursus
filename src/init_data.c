@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 22:40:32 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 13:16:41 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:50:55 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_player(t_cub	*cub)
 	cub->fov_angle = (60 * (M_PI / 180));
 	cub->player->pos.x = -1;
 	cub->player->pos.y = -1;
-	cub->player->move_speed = 3;
+	cub->player->move_speed = 5;
 	cub->player->move_speed_side = 2;
 	cub->player->rot_speed = 2 * (M_PI / 180);
 	cub->player->turn_dir = 0;
