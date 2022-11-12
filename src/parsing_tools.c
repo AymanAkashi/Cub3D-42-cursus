@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:43:27 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/07 23:17:39 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:11:56 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_path(char *str)
 	if (!str[i] || str[i] == '\n')
 		return ("");
 	j = i;
-	while(str[j] && str[j] != ' ' && str[j] != '\n')
+	while (str[j] && str[j] != ' ' && str[j] != '\n')
 		j++;
 	return (ft_substr(str, i, j - i));
 }

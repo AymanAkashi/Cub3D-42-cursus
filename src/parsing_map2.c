@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 18:56:40 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:13:12 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,37 +51,4 @@ t_bool	player_posistion(char c)
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		return (_true);
 	return (_false);
-}
-
-void	set_position_player(t_cub *cub, int i, int j, char c)
-{
-	cub->player->pos.x = j;
-	cub->player->pos.y = i;
-	cub->player->direction = c;
-}
-
-void	check_map(char **map, t_cub *cub)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (map && map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (check_char(map[i]) == _false)
-				error_map(0, cub);
-			if (player_posistion(map[i][j]) && cub->player->pos.x == -1)
-				set_position_player(cub, i, j, map[i][j]);
-			else if (player_posistion(map[i][j]) && cub->player->pos.x != -1)
-				error_map(0, cub);
-			if (map[i][j] == '0' || player_posistion(map[i][j])
-				|| map[i][j] == 'D')
-				checking_valid_map(map, i, j, cub);
-		}
-	}
-	if (cub->player->pos.x == -1 || map[i - 1][j - 1] == '\n')
-		error_map(0, cub);
 }

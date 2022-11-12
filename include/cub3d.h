@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:57:22 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/12 13:14:28 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define WIN_HEIGHT 720
 # define RADIUS_M 80
 # define FOV 60
-# define FOV_ANGLE (FOV * (M_PI / 180))
 # define NUM_RAYS (WIN_WIDTH)
 # define RADUIS_ANGLE 50
 
@@ -60,14 +59,13 @@ typedef enum e_state
 }	t_state;
 
 typedef struct s_door{
-	int			index;
-	int			x;
-	int			y;
-	t_bool		is_open;
-	t_bool		active;
+	int				index;
+	int				x;
+	int				y;
+	t_bool			is_open;
+	t_bool			active;
 	struct s_door	*next;
 }	t_door;
-
 
 // rays data
 typedef struct s_rays
@@ -78,7 +76,7 @@ typedef struct s_rays
 	float	wall_hit_y;
 	float	distance;
 	t_pos	intersection;
-	t_bool 	was_hit_vertical;
+	t_bool	was_hit_vertical;
 	int		y_texture;
 	double	x_texture;
 	float	y_offset;
@@ -178,6 +176,7 @@ typedef struct s_player
 // main struct data
 typedef struct s_cub
 {
+	float			fov_angle;
 	t_compass		*compass;
 	t_rays			*rays;
 	char			**map;
@@ -210,9 +209,9 @@ typedef struct s_cub
 	t_bool			on_dis;
 	t_door			*door;
 	int				*tab;
-	int x_door;
-	int y_door;
-	int	open;
+	int				x_door;
+	int				y_door;
+	int				open;
 }	t_cub;
 
 void		parsing(char *map, t_cub *cub);
@@ -264,6 +263,7 @@ t_bool		check_char(char *line);
 void		check_map(char **map, t_cub *cub);
 char		*gnl_line(char *line, int fd);
 t_bool		player_posistion(char c);
+void		checking_valid_map(char **map, int i, int j, t_cub *cub);
 
 //free data functions
 void		free_tab(char **tab);
@@ -323,10 +323,19 @@ t_bool		check_circle(int x, int y, int radius, t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
 void		open_image(t_cub *cub, t_compass *tmp);
 void		open_image_door(t_cub *cub);
+void		open_door(t_cub *cub);
 
 void		set_door(t_cub *cub);
 
 int			create_trgb(int t, t_color color);
 void		put_pixel(int color, t_cub *cub);
+t_texture	set_color(t_cub *cub);
+float		get_x_intersection(t_cub *cub);
+void		draw_celling(t_cub *cub);
+void		draw_floor(t_cub *cub);
+void		add_textures(t_cub *cub, t_texture texture);
+void		draw_circle_player(t_cub *cub, int x, int y, int color);
+void		simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub,
+				t_pos incr_color);
 
 #endif

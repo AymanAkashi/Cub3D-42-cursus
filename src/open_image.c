@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:48:30 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:49:27 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:09:19 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ void	open_image_door(t_cub *cub)
 			&cub->texture_door.bpp, &cub->texture_door.size_line,
 			&cub->texture_door.endian);
 }
-

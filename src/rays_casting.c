@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_casting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:35:08 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 18:44:43 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:49:36 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,4 @@ t_pos	finding_distance(t_pos p, t_pos h_p, t_pos v_p, t_cub *cub)
 		cub->rays->was_hit_vertical = _true;
 		return (v_p);
 	}
-}
-
-float normalize_angle(float angle)
-{
-	angle = remainder(angle, (2 * M_PI));
-	if (angle < 0)
-		angle = angle + (2 * M_PI);
-	return (angle);
 }

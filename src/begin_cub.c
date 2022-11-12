@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:54:48 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/12 13:15:03 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ void	get_win_size(t_cub *cub)
 	}
 	cub->win_width = max_width * BLOCK_SIZE;
 	cub->win_height = i * BLOCK_SIZE;
-}
-
-void	hook_start(t_cub *cub)
-{
-	cub->img = mlx_new_image(cub->mlx, WIN_WIDTH, WIN_HEIGHT);
-	cub->addr = (unsigned int *) mlx_get_data_addr(cub->img, &cub->bpp,
-			&cub->size_line, &cub->endian);
-	set_hide_mouse(KEY_Q, cub);
-	mlx_hook(cub->win, 17, 0, end_game, cub);
-	mlx_hook(cub->win, 02, 1L << 0, input, cub);
-	mlx_hook(cub->win, 03, 1L << 1, input_release, cub);
-	mlx_hook(cub->win, 06, 1L << 6, mouse_move, cub);
-	mlx_mouse_hook(cub->win, mouse_click, cub);
-	mlx_loop_hook(cub->mlx, loop, cub);
 }
 
 void	set_image(t_compass *list, t_cub *cub)

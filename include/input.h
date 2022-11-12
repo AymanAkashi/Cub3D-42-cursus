@@ -3,56 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:09:30 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/08 12:41:45 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/12 13:04:08 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_H
 # define INPUT_H
-
-/**
- * A key action such as pressing or releasing a key.
- * 
- * @param RELEASE Execute when the key is being released.
- * @param PRESS Execute when the key is being pressed.
- * @param REPEAT Execute when the key is being held down.
- */
-typedef enum action
-{
-	MLX_RELEASE = 0,
-	MLX_PRESS	= 2,
-	MLX_REPEAT	= 1,
-}	action_t;
-
-/**
- * The mouse button keycodes.
- * @param LEFT The left mouse button.
- * @param RIGHT The right mouse button.
- * @param MIDDLE The middle mouse button, aka the Scrollwheel.
- */
-typedef enum mouse_key
-{
-	MLX_MOUSE_BUTTON_LEFT	= 0,
-	MLX_MOUSE_BUTTON_RIGHT	= 1,
-	MLX_MOUSE_BUTTON_MIDDLE	= 2,
-}	mouse_key_t;
-
-/**
- * Various mouse/cursor states.
- * @param NORMAL Simple visibile default cursor.
- * @param HIDDEN The cursor is not rendered, still functions however.
- * @param DISABLED The cursor is not rendered, nor is it functional.
- */
-typedef enum mouse_mode
-{
-	MLX_MOUSE_NORMAL	= 0x00034001,
-	MLX_MOUSE_HIDDEN	= 0x00034002,
-	MLX_MOUSE_DISABLED	= 0x00034003,
-}	mouse_mode_t;
-
 /**
  * All sorts of keyboard keycodes.
  *
@@ -102,6 +61,6 @@ typedef enum keys
 	KEY_ESCAPE			= 53,
 	KEY_PLUS			= 69,
 	KEY_MINUS			= 78,
-}	keys_t;
+}	t_keys;
 
 #endif

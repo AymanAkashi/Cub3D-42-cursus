@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:46:12 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 19:47:05 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:15:31 by moseddik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
 
 t_bool	check_circle_next(int x, int y, int radius, t_cub *cub)
 {
