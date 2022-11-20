@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/18 13:10:21 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:43:45 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,6 @@ t_compass	*scan_line(char *line, t_cub *cub)
 	free(content);
 	return (compass);
 }
-
-//******************************Print List of compass*************************//
-void	print_list(t_compass *list, t_cub *cub)
-{
-	t_compass	*tmp;
-	char		*str[] = {"NO", "SO", "WE", "EA", "F", "C"};
-
-	tmp = list;
-	while (tmp)
-	{
-		printf("type: %s, path: %s\n", str[tmp->type], tmp->path);
-		tmp = tmp->next;
-	}
-	printf("type %s == color: %d, %d, %d\n",str[cub->floor.type], cub->floor._r, cub->floor._g, cub->floor._b);
-	printf("type %s == color: %d, %d, %d\n",str[cub->celling.type], cub->celling._r, cub->celling._g, cub->celling._b);
-	for(int i = 0; cub->map[i]; i++)
-		printf("%s", cub->map[i]);
-}
-//****************************************************************************//
 
 int	check_state(char *line)
 {
@@ -85,8 +66,6 @@ t_bool	parse_compass(t_cub *cub, int *c, char *line)
 		error_infomation(-1, cub);
 	if (compass && check_state(line) == 2)
 	{
-		if (!check_path(compass->path))
-			error_infomation(*c, cub);
 		ft_d_lstadd_back(&cub->compass, compass);
 		(*c)++;
 	}
@@ -125,6 +104,5 @@ void	parsing(char *map, t_cub *cub)
 	if (fd == -1 || !check_format(map))
 		error_file(fd, cub);
 	scan_file(fd, cub, c);
-	print_list(cub->compass, cub);
 	close(fd);
 }

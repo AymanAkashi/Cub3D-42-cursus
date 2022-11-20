@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/10/18 09:36:59 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/11/12 16:32:09 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 LIB_DIR			:= lib
 LIBFT_DIR		:= $(LIB_DIR)/libft
-MLX42_DIR		:= $(LIB_DIR)/MLX42
+MLX_DIR			:= $(LIB_DIR)/MLX
 
 # *********************************** Files ************************************
 NAME			:= cub3d
@@ -43,23 +43,38 @@ SRC				:= main.c \
 					parsing_map.c	\
 					parsing_map2.c	\
 					free_data.c \
-					init_data.c 
+					init_data.c \
+					begin_cub.c \
+					keypress.c \
+					hook.c \
+					render.c \
+					player_draw.c \
+					list_door.c \
+					handling_doors.c \
+					rays_casting.c \
+					mouse_hook.c \
+					player_check.c \
+					open_image.c \
+					color_rgb.c \
+					mouse_events.c \
+					parsing_map3.c \
+					rays_casting_2.c \
+					draw_cell_floor.c \
+					player_draw_2.c \
+					add_textures.c \
+					end_game.c
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
-MLX42			:= libmlx42.a
+MLX 			:= libmlx.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g #-fsanitize=address
-INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR) \
-					-I $(shell brew --prefix glfw)/$(INC_DIR) \
-					-I lib/MLX42/include/MLX42
-LIBFLAGS		:= -L $(LIBFT_DIR) -lft \
-					-L $(MLX42_DIR) -lmlx42 \
-					-lglfw -L $(shell brew --prefix glfw)/lib
+CFLAGS			:= -Wall -Wextra -Werror -Imlx -g #-fsanitize=address
+INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
+LIBFLAGS		:= -L $(LIBFT_DIR) -lft
 
 # ******************************* Other commands *******************************
 RM				:= rm -rf
@@ -69,17 +84,16 @@ MKDIR			:= mkdir -p
 OBJ_DEP			:= $(addprefix $(OBJ_DIR)/, $(OBJ))
 INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
-MLX42_DEP		:= $(MLX42_DIR)/$(MLX42)
+MLX_DEP			:= $(MLX_DIR)/$(MLX)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
 LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
-MLX42_INC_DEP	:= $(MLX42_DIR)/$(INC_DIR)/MLX42
 
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP) $(MLX42_DEP)
+$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP) $(MLX_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(OBJ_DEP) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFLAGS) $(MLX_DEP) $(OBJ_DEP) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DEP)
 	@$(MKDIR) $(OBJ_DIR)
@@ -90,23 +104,19 @@ $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
 	@make -C $(LIBFT_DIR)
 
-$(MLX42_DEP): $(MLX42_INC_DEP)
-	@echo "$(BLUE)Building	$(CYAN)$(MLX42)$(NC)"
-	@make -C $(MLX42_DIR)
-
+$(MLX_DEP):
+	@echo "$(BLUE)Building	$(CYAN)$(MLX)$(NC)"
+	@make -C $(MLX_DIR) 2> /dev/null
 clean:
 	@echo "$(RED)Removing$(BLUE)	$(LIBFT)  Object files$(NC)"
 	@make clean -C $(LIBFT_DIR)
-	@echo "$(RED)Removing$(BLUE)	$(MLX42)  Object files$(NC)"
-	@make clean -C $(MLX42_DIR)
 	@echo "$(RED)Removing	$(YELLOW)Object files$(NC)"
 	@$(RM) $(OBJ_DIR)
+	@ make clean -C $(MLX_DIR)
 
 fclean: clean
 	@echo "$(RED)Removing	$(BLUE)$(LIBFT)$(NC)"
 	@make fclean -C $(LIBFT_DIR)
-	@echo "$(RED)Removing	$(BLUE)$(MLX42)$(NC)"
-	@make fclean -C $(MLX42_DIR)
 	@echo "$(RED)Removing	$(PURPLE)$(NAME)$(NC)"
 	@$(RM) $(NAME)
 

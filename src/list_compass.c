@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 15:46:50 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/10/18 13:06:16 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:03:07 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ t_compass	*ft_d_lstnew(char *content, t_type type)
 	head->prev = NULL;
 	head->type = type;
 	head->path = content;
+	head->texture.img = NULL;
+	head->texture.height = 0;
+	head->texture.width = 0;
 	head->next = NULL;
 	return (head);
 }
