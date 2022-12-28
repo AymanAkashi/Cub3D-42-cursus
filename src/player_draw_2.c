@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:31:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/12 12:53:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:03:14 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	update_player(t_player *player, t_cub *cub)
 {
 	int		move_step;
 	int		move_side;
-	float	new_x;
-	float	new_y;
+	float	new_x = 0;
+	float	new_y = 0;
 
 	player->rot_angle += player->turn_dir * player->rot_speed;
 	move_side = player->walk_side * player->move_speed_side;

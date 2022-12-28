@@ -6,16 +6,16 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:37:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:48:54 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "../lib/libft/include/libft.h"
 # include "input.h"
 # include <../lib/MLX/mlx.h>
-# include "../lib/libft/include/libft.h"
 # include "get_next_line.h"
 # include <unistd.h>
 # include <stdio.h>
@@ -317,7 +317,7 @@ t_bool		check_wall(int x, int y, t_cub *cub);
 int			mouse_click(int button, int x, int y, t_cub *cub);
 int			mouse_start(int button, int x, int y, t_cub *cub);
 int			mouse_init(t_cub *cub);
-void		hook_start(t_cub *cub);
+int			hook_start(t_cub *cub);
 t_bool		check_circle_next(int x, int y, int radius, t_cub *cub);
 t_bool		check_circle(int x, int y, int radius, t_cub *cub);
 t_bool		is_wall(int x, int y, t_cub *cub);
