@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/11/12 16:32:09 by aaggoujj         ###   ########.fr        #
+#    Updated: 2022/12/27 00:41:41 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,13 +66,13 @@ SRC				:= main.c \
 OBJ				:= $(SRC:.c=.o)
 INC				:= $(shell ls $(INC_DIR))
 LIBFT			:= libft.a
-MLX 			:= libmlx.a
+MLX 			:= libmlx_Linux.a
 LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -Imlx -g #-fsanitize=address
+CFLAGS			:= -Wall -Wextra -Werror #-fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft
 
@@ -86,19 +86,19 @@ INC_DEP			:= $(addprefix $(INC_DIR)/, $(INC))
 LIBFT_DEP		:= $(LIBFT_DIR)/$(LIBFT)
 MLX_DEP			:= $(MLX_DIR)/$(MLX)
 LIBFT_SRC_DEP	:= $(addprefix $(LIBFT_DIR)/$(SRC_DIR)/, $(LIBFT_SRC))
-LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h
+LIBFT_INC_DEP	:= $(LIBFT_DIR)/$(INC_DIR)/libft.h 
 
 # ********************************** Targets ***********************************
 all: $(NAME)
 
-$(NAME): $(OBJ_DEP) $(INC_DEP) $(LIBFT_DEP) $(MLX_DEP)
+$(NAME): $(OBJ_DEP) $(INC_DEP) $(MLX_DEP)
 	@echo "$(BLUE)Building	$(PURPLE)$(NAME)$(NC)"
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(MLX_DEP) $(OBJ_DEP) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ_DEP) lib/libft/libft.a lib/MLX/libmlx_Linux.a -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DEP)
 	@$(MKDIR) $(OBJ_DIR)
 	@echo "$(GREEN)Compiling	$(YELLOW)$(shell basename $<)$(NC)"
-	@$(CC) $(CFLAGS) $(INCFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(INCFLAGS)  -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 	@echo "$(BLUE)Building	$(CYAN)$(LIBFT)$(NC)"
@@ -106,7 +106,7 @@ $(LIBFT_DEP): $(LIBFT_SRC_DEP) $(LIBFT_INC_DEP)
 
 $(MLX_DEP):
 	@echo "$(BLUE)Building	$(CYAN)$(MLX)$(NC)"
-	@make -C $(MLX_DIR) 2> /dev/null
+	@make -C $(MLX_DIR) > /dev/null
 clean:
 	@echo "$(RED)Removing$(BLUE)	$(LIBFT)  Object files$(NC)"
 	@make clean -C $(LIBFT_DIR)
@@ -116,7 +116,6 @@ clean:
 
 fclean: clean
 	@echo "$(RED)Removing	$(BLUE)$(LIBFT)$(NC)"
-	@make fclean -C $(LIBFT_DIR)
 	@echo "$(RED)Removing	$(PURPLE)$(NAME)$(NC)"
 	@$(RM) $(NAME)
 

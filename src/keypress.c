@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 10:08:39 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:37:22 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/12/27 01:11:00 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	move_key(int key, t_cub *cub)
 int	input_release(int key, t_cub *cub)
 {
 	(void)cub;
+	(void)key;
 	if (key == KEY_W || key == KEY_S || key == KEY_UP || key == KEY_DOWN)
 		cub->player->walk_dir = 0;
 	if (key == KEY_A || key == KEY_D)

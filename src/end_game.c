@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 16:31:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:57:12 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/12/27 01:26:03 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	sprite_endgame(t_cub *cub)
 	{
 		mlx_clear_window(cub->mlx, cub->win);
 		mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-		mlx_put_image_to_window(cub->mlx, cub->win, img, WIN_WIDTH / 2,
-			WIN_HEIGHT / 2);
+		mlx_put_image_to_window(cub->mlx, cub->win, img, WIN_WIDTH / 2 - WIN_WIDTH / 4,
+			WIN_HEIGHT / 2 - WIN_HEIGHT / 4);
 	}
 	return (EXIT_SUCCESS);
 }

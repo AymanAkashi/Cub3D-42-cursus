@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:56:14 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:57:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/12/27 01:07:33 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	init_input(int key, void *param)
 	t_cub	*cub;
 
 	cub = (t_cub *)param;
+	printf("key: %d\n", key);
 	if (key == KEY_ESCAPE)
 		end_game(cub);
 	if (key == KEY_ENTER)
@@ -78,18 +79,14 @@ int	init_game(t_cub *cub)
 		exit(1);
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, image, 0, 0);
-	mlx_hook(cub->win, 17, 0, see_you_later, cub);
-	mlx_hook(cub->win, 02, 0, init_input, cub);
+	// printf("hjello\n");
+	mlx_hook(cub->win, 17, 1L<<0, see_you_later, cub);
+	mlx_hook(cub->win, 0, 0, init_input, cub);
 	return (0);
 }
 
 void	begin_cub(t_cub *cub)
 {
-	int	width;
-	int	height;
-
-	width = WIN_WIDTH;
-	height = WIN_HEIGHT / 2;
 	get_win_size(cub);
 	set_angle(cub);
 	set_door(cub);
@@ -101,6 +98,7 @@ void	begin_cub(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
 	open_image_door(cub);
 	set_image(cub->compass, cub);
-	init_game(cub);
+	hook_start(cub);
+	// init_game(cub);
 	mlx_loop(cub->mlx);
 }

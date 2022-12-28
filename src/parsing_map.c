@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:52:54 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 21:09:50 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:01:37 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,9 @@ char	**dynamique_tab(char **tab, char *line)
 
 void	parsing_map(char *line, t_cub *cub, int fd)
 {
-	int	i;
 	int	c;
 
-	i = 0;
+	c = 0;
 	while (line)
 	{
 		c = check_line_map(line);

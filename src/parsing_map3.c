@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 21:12:38 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/10 21:13:21 by moseddik         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:02:50 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	check_map(char **map, t_cub *cub)
 	int	j;
 
 	i = -1;
+	j = 0;
 	while (map && map[++i])
 	{
 		j = -1;

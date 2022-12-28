@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 18:19:09 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:02:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,6 @@ t_texture	set_color(t_cub *cub)
 
 void	render(t_cub *cub)
 {
-	int	x;
-	int	y;
-
-	x = cub->player->pos.x;
-	y = cub->player->pos.y;
 	update_player(cub->player, cub);
 	draw_celling(cub);
 	draw_floor(cub);
