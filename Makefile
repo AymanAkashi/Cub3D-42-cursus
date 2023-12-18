@@ -6,7 +6,7 @@
 #    By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 09:41:31 by moseddik          #+#    #+#              #
-#    Updated: 2022/11/12 16:32:09 by aaggoujj         ###   ########.fr        #
+#    Updated: 2023/12/18 13:49:32 by aaggoujj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ LIBFT_SRC		:= $(shell ls $(LIBFT_DIR)/$(SRC_DIR))
 LIBFT_INC		:= libft.h
 
 # ****************************** Compiler Options ******************************
-CC				:= cc
+CC				:= clang
 CFLAGS			:= -Wall -Wextra -Werror -Imlx -g #-fsanitize=address
 INCFLAGS		:= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
 LIBFLAGS		:= -L $(LIBFT_DIR) -lft

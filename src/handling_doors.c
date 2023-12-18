@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handling_doors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 03:59:31 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 21:57:33 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	set_door(t_cub *cub)
 {

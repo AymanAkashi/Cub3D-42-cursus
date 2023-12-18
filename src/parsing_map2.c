@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:02:56 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 21:13:12 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 t_bool	is_not_zero(char c)
 {
 	if (c != '1' && c != 'N' && c != 'S'
-		&& c != 'W' && c != 'E' && c != '0' && c != 'D')
+		&& c != 'W' && c != 'E' && c != '0' && c != 'D' && c != 'C')
 		return (_false);
 	return (_true);
 }

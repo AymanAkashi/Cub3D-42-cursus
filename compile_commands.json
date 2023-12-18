@@ -1,0 +1,7 @@
+[
+	{
+		"directory": "/Users/aaggoujj/Cub3D-42-cursus/",
+		"command": "make",
+		"file": "/path/to/project/src/*.c"
+	}
+]

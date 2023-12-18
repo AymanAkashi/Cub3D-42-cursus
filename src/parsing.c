@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 12:59:43 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/08 13:43:45 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 t_compass	*scan_line(char *line, t_cub *cub)
 {

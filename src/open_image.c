@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:48:30 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 17:43:39 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	open_image(t_cub *cub, t_compass *tmp)
 {

@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 15:46:50 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/08 15:03:07 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:55:24 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	ft_d_lstdelone(t_compass *lst)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_events.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:48:07 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/10 20:49:08 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 int	mouse_move(int x, int y, void *param)
 {
@@ -29,8 +29,13 @@ int	mouse_move(int x, int y, void *param)
 		if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
 			return (1);
 		x_diff = x - x_center;
-		y_diff = y - y_center;
+		y_diff = y_center - y;
 		cub->player->rot_angle += (x_diff * 0.001);
+		g_ss += y_diff;
+		if (g_ss < 0)
+			g_ss = 0;
+		if (g_ss > WIN_HEIGHT)
+			g_ss = WIN_HEIGHT;
 	}
 	return (1);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays_casting_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 21:49:03 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/12 13:13:06 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:00:33 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 float	normalize_angle(float angle)
 {
@@ -64,7 +64,7 @@ void	cast_ray(t_cub *cub, float ray_angle)
 void	cast_all_rays(t_cub *cub)
 {
 	float		ray_angle;
-	t_texture	texture;
+	t_texture	texture	;
 
 	cub->rays->index = 0;
 	cub->player->rot_angle = normalize_angle(cub->player->rot_angle);
@@ -82,7 +82,7 @@ void	cast_all_rays(t_cub *cub)
 			texture = cub->texture_door;
 		else
 			texture = set_color(cub);
-		add_textures(cub, texture);
+		add_textures(cub, texture, cub->rays->distance);
 		ray_angle += cub->fov_angle / NUM_RAYS;
 		cub->rays->index++;
 	}

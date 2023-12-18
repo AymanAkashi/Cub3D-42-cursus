@@ -6,11 +6,15 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:20:47 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:46:17 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:53:28 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
+# include "../lib/libft/include/libft.h"
+#include <stdio.h>
+
+double g_ss = WIN_HEIGHT / 2;
 
 int	main(int ac, char **av)
 {

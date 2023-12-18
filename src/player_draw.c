@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:08:41 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 17:34:55 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:02:19 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub, t_pos incr_color)
 {
@@ -130,7 +130,7 @@ void	draw_circle(t_cub *cub, int x, int y, int color)
 				(t_pos){x1, y1}, cub, (t_pos){-1, color});
 		i += 0.1;
 	}
-	draw_circle_player(cub, RADIUS_M, WIN_HEIGHT - RADIUS_M, 0x00A5C9CA);
 	dda(cub, (t_pos){x, y}, (t_pos){RADIUS_M + cos(cub->player->rot_angle) * 15,
 		WIN_HEIGHT - RADIUS_M + sin(cub->player->rot_angle) * 15}, 0x000F3D3E);
+	draw_circle_player(cub, RADIUS_M, WIN_HEIGHT - RADIUS_M, 0x00AAAAAA);
 }

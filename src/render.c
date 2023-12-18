@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:16:02 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 18:19:09 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 t_bool	check_wall(int x, int y, t_cub *cub)
 {
@@ -24,14 +24,13 @@ t_bool	check_wall(int x, int y, t_cub *cub)
 	cub->rays->was_door = _false;
 	cub->rays->x_door = -1;
 	cub->rays->y_door = -1;
-	if (cub->map[tile_y] && tile_x < cub->tab[tile_y]
-		&& (cub->map[tile_y][tile_x] == '1' || cub->map[tile_y][tile_x] == 'D'))
+	if (cub->map[tile_y] && (cub->map[tile_y][tile_x] == '1' || cub->map[tile_y][tile_x] == 'D'))
 	{
 		if (cub->map[tile_y][tile_x] == 'D')
 		{
 			cub->rays->was_door = _true;
 			cub->rays->x_door = tile_x;
-			cub->rays->y_door = tile_y;
+			cub->rays->y_door = tile_y; 
 			cub->rays->was_open = _true;
 		}
 		return (_false);
@@ -88,6 +87,8 @@ t_texture	set_color(t_cub *cub)
 	state2 = checking_state(cub->rays->ray_angle, 2);
 	return (set_color_helper(cub, state1, state2));
 }
+
+
 
 void	render(t_cub *cub)
 {

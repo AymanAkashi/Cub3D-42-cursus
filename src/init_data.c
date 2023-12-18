@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 22:40:32 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:50:55 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	set_angle(t_cub *cub)
 {
@@ -36,12 +36,14 @@ void	init_player(t_cub	*cub)
 	cub->fov_angle = (60 * (M_PI / 180));
 	cub->player->pos.x = -1;
 	cub->player->pos.y = -1;
-	cub->player->move_speed = 5;
-	cub->player->move_speed_side = 2;
+	cub->player->move_speed = 2;
+	cub->player->move_speed_side = 1;
+	cub->pos_weapon = 0;
+	cub->dir_weapon = 1;
 	cub->player->rot_speed = 2 * (M_PI / 180);
 	cub->player->turn_dir = 0;
 	cub->player->walk_dir = 0;
-	cub->player->radius = 4;
+	cub->player->radius = 1;
 }
 
 void	init_rays(t_cub *cub)

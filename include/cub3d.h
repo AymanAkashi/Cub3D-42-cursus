@@ -6,7 +6,7 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 09:22:28 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:37:34 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:22:58 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "input.h"
-# include <../lib/MLX/mlx.h>
+# include "../lib/MLX/mlx.h"
 # include "../lib/libft/include/libft.h"
 # include "get_next_line.h"
 # include <unistd.h>
@@ -26,7 +26,7 @@
 # include <sys/errno.h>
 # include <math.h>
 
-# define BLOCK_SIZE 32
+# define BLOCK_SIZE 10
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 # define RADIUS_M 80
@@ -35,7 +35,7 @@
 # define RADUIS_ANGLE 50
 
 # define MAX_INT 2147483647
-
+extern double g_ss;
 // check true or false enum
 typedef enum e_bool
 {
@@ -200,6 +200,13 @@ typedef struct s_cub
 	void			*img;
 	void			*player_img;
 	void			*line;
+	void			*weopon;
+	void			*zoomWeapon;
+	void			*defaultWeapon;
+	void			*compass_img;
+	void			*scop;
+	int				pos_weapon;
+	int				dir_weapon;
 	t_texture		texture_door;
 	t_texture		texture_open_door;
 	int				distance_proj_plane;
@@ -333,7 +340,7 @@ t_texture	set_color(t_cub *cub);
 float		get_x_intersection(t_cub *cub);
 void		draw_celling(t_cub *cub);
 void		draw_floor(t_cub *cub);
-void		add_textures(t_cub *cub, t_texture texture);
+void		add_textures(t_cub *cub, t_texture texture, float distance);
 void		draw_circle_player(t_cub *cub, int x, int y, int color);
 void		simple_draw_line(t_pos pos, t_pos pos1, t_cub *cub,
 				t_pos incr_color);

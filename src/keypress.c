@@ -6,11 +6,11 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 10:08:39 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/12 16:37:22 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 t_door	*get_door(t_door *door, int x, int y)
 {
@@ -59,6 +59,17 @@ void	move_key(int key, t_cub *cub)
 		cub->player->turn_dir = -1;
 	if (key == KEY_RIGHT)
 		cub->player->turn_dir = 1;
+	if (key == KEY_UP || key == KEY_DOWN || key == KEY_S || key == KEY_W)
+	{
+		if (cub->pos_weapon > 45)
+			cub->dir_weapon = -1;
+		else if (cub->pos_weapon <= 0)
+		{
+			cub->pos_weapon = 0;
+			cub->dir_weapon = 1;
+		}
+		cub->pos_weapon += (15 * cub->dir_weapon);
+	}
 	if (key == KEY_SPACE && check_player(cub))
 	{
 		open_door(cub);
@@ -69,7 +80,10 @@ int	input_release(int key, t_cub *cub)
 {
 	(void)cub;
 	if (key == KEY_W || key == KEY_S || key == KEY_UP || key == KEY_DOWN)
+	{
 		cub->player->walk_dir = 0;
+		cub->pos_weapon = 0;
+	}
 	if (key == KEY_A || key == KEY_D)
 		cub->player->walk_side = 0;
 	if (key == KEY_LEFT || key == KEY_RIGHT)

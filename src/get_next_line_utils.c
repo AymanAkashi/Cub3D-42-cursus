@@ -6,11 +6,12 @@
 /*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:22:21 by moseddik          #+#    #+#             */
-/*   Updated: 2022/10/09 15:30:18 by aaggoujj         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:55:01 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "../lib/libft/include/libft.h"
 
 char	*ft_strdup(const char *s1)
 {

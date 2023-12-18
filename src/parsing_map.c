@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:52:54 by aaggoujj          #+#    #+#             */
-/*   Updated: 2022/11/10 21:09:50 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:57:10 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 char	*gnl_line(char *line, int fd)
 {
@@ -29,7 +29,7 @@ t_bool	check_char(char *line)
 		if (line[i] != ' ' && line[i] != '\n'
 			&& line[i] != '0' && line[i] != '1' && line[i] != 'N'
 			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W'
-			&& line[i] != 'D' && line[i] != 'O')
+			&& line[i] != 'D' && line[i] != 'O' && line[i] != 'C')
 			return (_false);
 	}
 	return (_true);

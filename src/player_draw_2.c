@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_draw_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moseddik <moseddik@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: aaggoujj <aaggoujj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:31:30 by moseddik          #+#    #+#             */
-/*   Updated: 2022/11/12 12:53:28 by moseddik         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:01:39 by aaggoujj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "../include/cub3d.h"
 
 void	dda(t_cub *cub, t_pos p0, t_pos p1, int color)
 {
@@ -76,8 +76,8 @@ void	draw_circle_player(t_cub *cub, int x, int y, int color)
 	while (i < 360)
 	{
 		angle = i;
-		x1 = cub->player->radius * cos(angle * M_PI / 180);
-		y1 = cub->player->radius * sin(angle * M_PI / 180);
+		x1 = 4 * cos(angle * M_PI / 180);
+		y1 = 4 * sin(angle * M_PI / 180);
 		if (x1 > 0)
 			simple_draw_line((t_pos){x, y},
 				(t_pos){x1, y1}, cub, (t_pos){1, color});
